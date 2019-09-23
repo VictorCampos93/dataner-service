@@ -20,7 +20,7 @@ apply plugin:'kotlin'
 group 'carbon-tower-backend'
 version '1.2'
 
-repositories {\
+repositories {
     jcenter()
     mavenCentral()
     maven {
