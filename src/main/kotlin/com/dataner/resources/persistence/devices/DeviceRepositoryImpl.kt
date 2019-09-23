@@ -7,5 +7,6 @@ class DeviceRepositoryImpl: DeviceRepository {
 
     override fun createDevice(device: Device) {
 
+        println(device)
     }
 }

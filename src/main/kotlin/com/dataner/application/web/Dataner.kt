@@ -1,7 +1,9 @@
 package com.dataner.application.web
 
+import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
 import com.dataner.commom.koin.datanerModule
+import com.dataner.commom.koin.deviceModule
 import io.javalin.Javalin
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.StandAloneContext
@@ -20,13 +22,19 @@ object Dataner: KoinComponent {
                 routes {
                     datanerRoutes.register()
                 }
+
+                exception(Exception::class.java) { e, ctx ->
+                    ErrorHandler.otherError(ctx, e)
+                }
+
             }.start(7000)
     }
 
     private fun setupDependencyInjection() {
         StandAloneContext.startKoin(
             listOf(
-                datanerModule
+                datanerModule,
+                deviceModule
             )
         )
     }

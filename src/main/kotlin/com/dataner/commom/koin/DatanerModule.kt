@@ -11,11 +11,11 @@ import org.koin.dsl.module.module
 
 val datanerModule: Module = module {
     single { DatanerRoutes(get()) }
+}
+
+val deviceModule: Module = module {
 
     single { DeviceController(get()) }
-
     single { DeviceServiceImpl(get()) as DeviceService}
-
     single { DeviceRepositoryImpl() as DeviceRepository }
-
 }
