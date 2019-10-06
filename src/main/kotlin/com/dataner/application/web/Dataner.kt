@@ -1,5 +1,6 @@
 package com.dataner.application.web
 
+import com.dataner.application.database.DatabaseManager
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
 import com.dataner.commom.koin.datanerModule
@@ -16,6 +17,9 @@ object Dataner: KoinComponent {
     fun startApplication(): Javalin {
 
         setupDependencyInjection()
+        DatabaseManager.connectWithH2()
+        DatabaseManager.dropTables()
+        DatabaseManager.createTables()
 
         return Javalin.create()
             .apply {
