@@ -6,10 +6,7 @@ import com.dataner.domain.tags.services.contracts.TagService
 
 class TagServiceImpl(
     private val tagRepository: TagRepository
-): TagService {
+) : TagService {
 
-    override fun tags(): List<Tag> {
-
-        return tagRepository.tags()
-    }
+    override fun tags(): List<Tag> = tagRepository.tags()
 }
