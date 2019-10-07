@@ -2,6 +2,7 @@ package com.dataner.application.web
 
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
+import com.dataner.commom.koin.companyModule
 import com.dataner.commom.koin.datanerModule
 import com.dataner.commom.koin.deviceModule
 import io.javalin.Javalin
@@ -34,7 +35,8 @@ object Dataner: KoinComponent {
         StandAloneContext.startKoin(
             listOf(
                 datanerModule,
-                deviceModule
+                deviceModule,
+                companyModule
             )
         )
     }
