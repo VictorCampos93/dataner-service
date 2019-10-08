@@ -36,17 +36,14 @@ object DatabaseManager {
 
     fun createTags() = transaction {
         TagTable.insert {
-            it[tagId] = 1
             it[tagDescription] = "ELETRICIDADE"
         }
 
         TagTable.insert {
-            it[tagId] = 2
             it[tagDescription] = "AR-CONDICIONADO"
         }
 
         TagTable.insert {
-            it[tagId] = 3
             it[tagDescription] = "LÂMPADA"
         }
     }

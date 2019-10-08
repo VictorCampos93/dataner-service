@@ -1,5 +1,6 @@
 package com.dataner.application.web.controllers
 
+import com.dataner.application.web.entities.Tag
 import com.dataner.domain.tags.services.contracts.TagService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
@@ -10,6 +11,15 @@ class TagController(
 
     fun tags(ctx: Context) = tagService.tags().also {
         ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
+    fun create(ctx: Context) = ctx.body<Tag>().let {
+        tagService.create(it.toTag()).let {
+            tagService.getLastTag()
+        }
+    }.also {
+        ctx.status(HttpStatus.CREATED_201)
         ctx.json(it)
     }
 

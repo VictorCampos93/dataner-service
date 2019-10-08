@@ -9,4 +9,13 @@ class TagServiceImpl(
 ) : TagService {
 
     override fun tags(): List<Tag> = tagRepository.tags()
+
+    override fun create(tag: Tag) {
+        if(tag.tagDescription.isBlank())
+            throw Exception()
+
+        tagRepository.createTag(tag)
+    }
+
+    override fun getLastTag(): Tag = tagRepository.getLastTag()
 }
