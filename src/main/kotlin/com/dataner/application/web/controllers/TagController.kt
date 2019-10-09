@@ -15,9 +15,7 @@ class TagController(
     }
 
     fun create(ctx: Context) = ctx.body<Tag>().let {
-        tagService.create(it.toTag()).let {
-            tagService.getLastTag()
-        }
+        tagService.create(it.toTag())
     }.also {
         ctx.status(HttpStatus.CREATED_201)
         ctx.json(it)

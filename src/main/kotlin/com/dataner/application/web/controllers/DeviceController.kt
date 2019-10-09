@@ -13,8 +13,7 @@ class DeviceController(
 
         deviceService.create(it.toDevice())
     }.also {
-        ctx.status(HttpStatus.OK_200)
-        ctx.json("Ok")
+        ctx.status(HttpStatus.CREATED_201)
     }
 
 }
