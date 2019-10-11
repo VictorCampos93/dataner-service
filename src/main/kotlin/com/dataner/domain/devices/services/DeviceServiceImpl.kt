@@ -10,12 +10,7 @@ class DeviceServiceImpl(
 ): DeviceService {
 
     override fun create(device: Device) {
-
-        if(device.deviceId.isBlank())
-            throw Exception()
-
         deviceRepository.createDevice(device)
-
     }
 
 }

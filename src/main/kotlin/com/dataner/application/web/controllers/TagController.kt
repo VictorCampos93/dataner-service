@@ -1,6 +1,7 @@
 package com.dataner.application.web.controllers
 
 import com.dataner.application.web.entities.Tag
+import com.dataner.commom.ext.Validate
 import com.dataner.domain.tags.services.contracts.TagService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
@@ -14,7 +15,8 @@ class TagController(
         ctx.json(it)
     }
 
-    fun create(ctx: Context) = ctx.body<Tag>().let {
+    fun createTag(ctx: Context) = ctx.body<Tag>().let {
+        Validate.validate(Tag::class, it)
         tagService.create(it.toTag())
     }.also {
         ctx.status(HttpStatus.CREATED_201)

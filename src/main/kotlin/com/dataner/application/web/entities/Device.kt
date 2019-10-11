@@ -6,7 +6,7 @@ data class Device (
     val deviceId: String,
     val deviceDescription: String,
     val environmentId: String,
-    val tagId: List<Int>
+    val tagId: List<Int>? = null
 ) {
     fun toDevice() = Device (
         deviceId = deviceId,

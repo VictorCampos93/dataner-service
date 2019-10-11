@@ -21,7 +21,7 @@ class DatanerRoutes(
 
             path("tags") {
                 get("all") { tagController.tags(it) }
-                post { tagController.create(it) }
+                post { tagController.createTag(it) }
             }
         }
 
