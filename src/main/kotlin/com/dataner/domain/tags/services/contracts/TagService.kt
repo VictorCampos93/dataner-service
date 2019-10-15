@@ -6,4 +6,5 @@ interface TagService {
 
     fun tags(): List<Tag>
     fun create(tag: Tag): Tag
+    fun delete(tagId: Int)
 }

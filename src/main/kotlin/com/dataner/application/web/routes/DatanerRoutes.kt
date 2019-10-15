@@ -5,6 +5,7 @@ import com.dataner.application.web.controllers.TagController
 import io.javalin.apibuilder.ApiBuilder.path
 import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.delete
 
 class DatanerRoutes(
     private val deviceController: DeviceController,
@@ -21,6 +22,7 @@ class DatanerRoutes(
 
             path("tags") {
                 get("all") { tagController.tags(it) }
+                delete(":id") { tagController.deleteTag(it) }
                 post { tagController.createTag(it) }
             }
         }

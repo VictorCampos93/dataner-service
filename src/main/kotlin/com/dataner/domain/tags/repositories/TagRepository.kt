@@ -7,4 +7,5 @@ interface TagRepository {
     fun tags(): List<Tag>
     fun createTag(tag: Tag)
     fun getLastTag(): Tag
+    fun deleteTag(tagId: Int)
 }

@@ -23,4 +23,11 @@ class TagController(
         ctx.json(it)
     }
 
+    fun deleteTag(ctx: Context) = ctx.pathParam("id").let {
+        tagService.delete(it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
 }

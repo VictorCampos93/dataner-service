@@ -3,6 +3,7 @@ package com.dataner.resources.persistence.tags
 import com.dataner.domain.tags.entities.Tag
 import com.dataner.domain.tags.repositories.TagRepository
 import com.dataner.resources.persistence.database.tables.TagTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -33,6 +34,14 @@ class TagRepositoryImpl : TagRepository {
                 tagId = it[TagTable.tagId],
                 tagDescription = it[TagTable.tagDescription]
             )
+        }
+    }
+
+    override fun deleteTag(tagId: Int) {
+        transaction {
+            TagTable.deleteWhere {
+                TagTable.tagId eq tagId
+            }
         }
     }
 }

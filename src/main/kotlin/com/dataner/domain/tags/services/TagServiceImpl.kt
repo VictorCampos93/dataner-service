@@ -15,4 +15,8 @@ class TagServiceImpl(
             return tagRepository.getLastTag()
         }
     }
+
+    override fun delete(tagId: Int) {
+        tagRepository.deleteTag(tagId)
+    }
 }
