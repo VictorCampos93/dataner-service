@@ -10,7 +10,9 @@ class TagController(
     private val tagService: TagService
 ) {
 
-    fun tags(ctx: Context) = tagService.tags().also {
+    fun tags(ctx: Context) = ctx.pathParam("building").let {
+        tagService.tags(it.toInt())
+    }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
     }
@@ -23,7 +25,7 @@ class TagController(
         ctx.json(it)
     }
 
-    fun deleteTag(ctx: Context) = ctx.pathParam("id").let {
+    fun deleteTag(ctx: Context) = ctx.pathParam("tag").let {
         tagService.delete(it.toInt())
     }.also {
         ctx.status(HttpStatus.OK_200)
