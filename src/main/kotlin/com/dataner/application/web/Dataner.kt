@@ -20,9 +20,9 @@ object Dataner: KoinComponent {
 
         setupDependencyInjection()
         DatabaseManager.connectWithH2()
-        DatabaseManager.dropTables()
-        DatabaseManager.createTables()
-        DatabaseManager.createTags()
+//        DatabaseManager.dropTables()
+//        DatabaseManager.createTables()
+//        DatabaseManager.createTags()
 
         return Javalin.create()
             .apply {

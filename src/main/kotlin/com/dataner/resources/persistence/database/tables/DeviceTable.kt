@@ -2,9 +2,10 @@ package com.dataner.resources.persistence.database.tables
 
 import org.jetbrains.exposed.sql.Table
 
-object DeviceTable : Table() {
-    val deviceId = varchar(name = "deviceId", length = 64).primaryKey()
-    val deviceDescription = varchar(name = "deviceDescription", length = 100)
-    val environmentId = varchar(name = "environmentId", length = 64)
-    val state = bool(name = "state")
+object DeviceTable : Table(name = "DEVICE") {
+    val deviceId = varchar(name = "DEVICE_ID", length = 64).primaryKey()
+    val deviceState = bool(name = "STATE")
+    val deviceDescription = varchar(name = "DESCRIPTION", length = 255)
+    val deviceType = varchar(name = "TYPE", length = 255)
+    val workplaceId = integer(name = "WORKPLACE_ID") references WorkplaceTable.workplaceId
 }

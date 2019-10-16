@@ -5,7 +5,6 @@ import com.dataner.domain.tags.repositories.TagRepository
 import com.dataner.resources.persistence.database.tables.TagTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 

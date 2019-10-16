@@ -20,8 +20,8 @@ class DeviceRepositoryImpl: DeviceRepository {
             DeviceTable.insert {
                 it[deviceId] = device.deviceId
                 it[deviceDescription] = device.deviceDescription
-                it[environmentId] = device.environmentId
-                it[state] = device.state
+                it[workplaceId] = device.workplaceId
+                it[deviceState] = device.state
             }
         }.also {
             logger.debug(
