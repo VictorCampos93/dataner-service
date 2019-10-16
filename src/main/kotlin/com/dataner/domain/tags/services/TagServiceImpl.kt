@@ -8,7 +8,7 @@ class TagServiceImpl(
     private val tagRepository: TagRepository
 ) : TagService {
 
-    override fun tags(): List<Tag> = tagRepository.tags()
+    override fun tags(buildingId: Int): List<Tag> = tagRepository.tags(buildingId)
 
     override fun create(tag: Tag): Tag {
         tagRepository.createTag(tag).also {

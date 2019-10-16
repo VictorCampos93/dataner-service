@@ -21,8 +21,8 @@ class DatanerRoutes(
             }
 
             path("tags") {
-                get("all") { tagController.tags(it) }
-                delete(":id") { tagController.deleteTag(it) }
+                get("all/:building") { tagController.tags(it) }
+                delete(":tag") { tagController.deleteTag(it) }
                 post { tagController.createTag(it) }
             }
         }
