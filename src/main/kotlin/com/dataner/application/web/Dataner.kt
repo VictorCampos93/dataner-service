@@ -5,7 +5,9 @@ import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
 import com.dataner.commom.koin.datanerModule
 import com.dataner.commom.koin.deviceModule
+import com.dataner.commom.koin.tagModule
 import io.javalin.Javalin
+import org.h2.engine.Database
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.StandAloneContext
 import org.koin.standalone.inject
@@ -20,6 +22,7 @@ object Dataner: KoinComponent {
         DatabaseManager.connectWithH2()
         DatabaseManager.dropTables()
         DatabaseManager.createTables()
+        DatabaseManager.createTags()
 
         return Javalin.create()
             .apply {
@@ -38,7 +41,8 @@ object Dataner: KoinComponent {
         StandAloneContext.startKoin(
             listOf(
                 datanerModule,
-                deviceModule
+                deviceModule,
+                tagModule
             )
         )
     }
