@@ -7,5 +7,6 @@ object BudgetTable : Table(name = "BUDGET") {
     val budgetAmount = double(name = "AMOUNT")
     val budgetMonth = integer(name = "MONTH")
     val budgetYear = integer(name = "YEAR")
-    val companyId = (integer(name = "COMPANY_ID") references CompanyTable.companyId)
+    val budgetCurrency = varchar(name = "CURRENCY", length = 10)
+    val buildingId = (integer(name = "BUILDING_ID") references BuildingTable.buildingId)
 }
