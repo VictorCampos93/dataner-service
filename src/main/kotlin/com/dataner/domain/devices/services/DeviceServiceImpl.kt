@@ -11,6 +11,12 @@ class DeviceServiceImpl(
 
     override fun create(device: Device) {
         deviceRepository.createDevice(device)
+
+        device.tagId?.forEach { tagId ->
+            deviceRepository.createDeviceTags(deviceId = device.deviceId, tagId = tagId)
+        }
     }
+
+    override fun allDeviceTags(deviceId: String) = deviceRepository.allDeviceTags(deviceId)
 
 }

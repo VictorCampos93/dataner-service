@@ -3,7 +3,8 @@ package com.dataner.domain.devices.entities
 data class Device (
     val deviceId: String,
     val deviceDescription: String,
-    val workplaceId: Int,
+    val deviceState: Boolean = false,
+    val deviceType: String,
     val tagId: List<Int>?,
-    val state: Boolean = false
+    val workplaceId: Int
 )

@@ -116,4 +116,28 @@ object DatabaseManager {
             it[buildingId] = 2
         }
     }
+
+    fun createFloor() = transaction {
+        FloorTable.insert {
+            it[floorNumber] = 1
+            it[buildingId] = 1
+        }
+
+        FloorTable.insert {
+            it[floorNumber] = 1
+            it[buildingId] = 2
+        }
+    }
+
+    fun createWorkplace() = transaction {
+        WorkplaceTable.insert {
+            it[workplaceDescription] = "Sala de reunião"
+            it[floorId] = 1
+        }
+
+        WorkplaceTable.insert {
+            it[workplaceDescription] = "Sala de reunião"
+            it[floorId] = 2
+        }
+    }
 }

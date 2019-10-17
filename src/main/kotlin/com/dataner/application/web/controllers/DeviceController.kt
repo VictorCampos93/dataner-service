@@ -17,4 +17,11 @@ class DeviceController(
         ctx.status(HttpStatus.CREATED_201)
     }
 
+    fun deviceTags(ctx: Context) = ctx.pathParam("device").let {
+        deviceService.allDeviceTags(it)
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
 }
