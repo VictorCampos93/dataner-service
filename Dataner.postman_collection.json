@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "d6c1ce49-cd16-46c2-8763-c049d56b4727",
+		"name": "Dataner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "[OK] Lista de Tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f7beb5ac-c054-4ab8-bc0e-0eb36e7336e5",
+								"exec": [
+									"// Define the schema expected in response",
+									"const responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"    \"$id\": \"http://example.com/root.json\",",
+									"    \"type\": \"array\",",
+									"    \"items\": {",
+									"        \"$id\": \"#/items\",",
+									"        \"type\": \"object\",",
+									"        \"title\": \"Tags Item Schema\",",
+									"        \"required\": [",
+									"            \"tagId\",",
+									"            \"tagDescription\"",
+									"        ],",
+									"        \"properties\": {",
+									"            \"tagId\": {",
+									"                \"$id\": \"#/items/properties/tagId\",",
+									"                \"type\": \"integer\",",
+									"                \"title\": \"Tag ID\",",
+									"                \"examples\": [",
+									"                    2",
+									"                ]",
+									"            },",
+									"            \"tagDescription\": {",
+									"                \"$id\": \"#/items/properties/tagDescription\",",
+									"                \"type\": \"string\",",
+									"                \"title\": \"Tag description\",",
+									"                \"examples\": [",
+									"                    \"AR-CONDICIONADO\"",
+									"                ]",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Ensures Status Code 200",
+									"pm.test('Status code is 200', function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Tests for response data structure",
+									"pm.test('Ensure schema contract', function () {",
+									"    var validation = tv4.validate(pm.response.json(), responseSchema);",
+									"    pm.expect(validation).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags/all/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags",
+								"all",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Cadastro de Tag",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9736d16a-316a-493e-a85a-5ecbfced5ab3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f3d6ef7-8f01-436b-bcdf-cc9a0dcc904a",
+								"exec": [
+									"// Define the schema expected in response",
+									"const responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"    \"$id\": \"http://example.com/root.json\",",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"tagId\",",
+									"        \"tagDescription\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"tagId\": {",
+									"            \"$id\": \"#/items/properties/tagId\",",
+									"            \"type\": \"integer\",",
+									"            \"title\": \"Tag ID\",",
+									"            \"examples\": [",
+									"                2",
+									"            ]",
+									"        },",
+									"        \"tagDescription\": {",
+									"            \"$id\": \"#/items/properties/tagDescription\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"Tag description\",",
+									"            \"examples\": [",
+									"                \"AR-CONDICIONADO\"",
+									"            ]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Ensures Status Code 201",
+									"pm.test('Status code is 201', function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Tests for response data structure",
+									"pm.test('Ensure schema contract', function () {",
+									"    var validation = tv4.validate(pm.response.json(), responseSchema);",
+									"    pm.expect(validation).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tagDescription\": \"TOMADA\",\n\t\"buildingId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Excluir Tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e74ea366-f4fc-493b-a210-01289d91b8a4",
+								"exec": [
+									"// Ensures Status Code 200",
+									"pm.test('Status code is 200', function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "[OK] Cadastro de Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "193e2acc-9684-47de-991d-3ad5a6354957",
+								"exec": [
+									"// Ensures Status Code 201",
+									"pm.test('Status code is 201 NO CONTENT', function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deviceId\": \"asd123\",\n\t\"deviceDescription\": \"Device do Ar-Condicionado\",\n\t\"environmentId\": \"123asd\",\n\t\"tagId\": [ 1, 2, 3 ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
