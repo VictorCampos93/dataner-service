@@ -5,6 +5,8 @@ import com.dataner.domain.devices.entities.DeviceTags
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.resources.persistence.database.tables.DeviceTable
 import com.dataner.resources.persistence.database.tables.DeviceTagsTable
+import com.dataner.resources.persistence.database.tables.TagTable
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -44,12 +46,13 @@ class DeviceRepositoryImpl : DeviceRepository {
     }
 
     override fun allDeviceTags(deviceId: String) = transaction {
-        DeviceTagsTable
-            .select { DeviceTagsTable.deviceId.eq(deviceId) }
+        ( DeviceTagsTable innerJoin TagTable)
+            .select { DeviceTagsTable.deviceId.eq(deviceId)
+                .and(TagTable.tagId.eq(DeviceTagsTable.tagId)) }
             .map { deviceTags ->
                 DeviceTags(
                     deviceId = deviceId,
-                    tagId = deviceTags[DeviceTagsTable.tagId]
+                    tagDescription = deviceTags[TagTable.tagDescription]
                 )
             }
     }
