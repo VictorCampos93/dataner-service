@@ -52,6 +52,7 @@ class DeviceRepositoryImpl : DeviceRepository {
             .map { deviceTags ->
                 DeviceTags(
                     deviceId = deviceId,
+                    tagId = deviceTags[DeviceTagsTable.tagId],
                     tagDescription = deviceTags[TagTable.tagDescription]
                 )
             }
