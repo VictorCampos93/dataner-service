@@ -1,11 +1,15 @@
 package com.dataner.resources.persistence.devices
 
+import com.dataner.domain.devices.entities.AllDeviceState
 import com.dataner.domain.devices.entities.Device
 import com.dataner.domain.devices.entities.DeviceTags
 import com.dataner.domain.devices.repositories.DeviceRepository
+import com.dataner.resources.persistence.database.tables.BuildingTable
 import com.dataner.resources.persistence.database.tables.DeviceTable
 import com.dataner.resources.persistence.database.tables.DeviceTagsTable
+import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.TagTable
+import com.dataner.resources.persistence.database.tables.WorkplaceTable
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -46,9 +50,11 @@ class DeviceRepositoryImpl : DeviceRepository {
     }
 
     override fun allDeviceTags(deviceId: String) = transaction {
-        ( DeviceTagsTable innerJoin TagTable)
-            .select { DeviceTagsTable.deviceId.eq(deviceId)
-                .and(TagTable.tagId.eq(DeviceTagsTable.tagId)) }
+        (DeviceTagsTable innerJoin TagTable)
+            .select {
+                DeviceTagsTable.deviceId.eq(deviceId)
+                    .and(TagTable.tagId.eq(DeviceTagsTable.tagId))
+            }
             .map { deviceTags ->
                 DeviceTags(
                     deviceId = deviceId,
@@ -56,5 +62,30 @@ class DeviceRepositoryImpl : DeviceRepository {
                     tagDescription = deviceTags[TagTable.tagDescription]
                 )
             }
+    }
+
+    override fun allBuildingDeviceState(buildingId: Int): AllDeviceState = transaction {
+        var devicesOn = 0
+        var allDevices = 0
+
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
+            .select {
+                DeviceTable.workplaceId.eq(WorkplaceTable.workplaceId).and(
+                    WorkplaceTable.floorId.eq(FloorTable.floorId).and(
+                        FloorTable.buildingId.eq(buildingId)
+                    )
+                )
+            }.map { allDevicesState ->
+                if (allDevicesState[DeviceTable.deviceState])
+                    devicesOn++
+
+                allDevices++
+            }
+
+        AllDeviceState(
+            devicesOn = devicesOn,
+            devicesOff = (allDevices - devicesOn),
+            allDevices = allDevices
+        )
     }
 }

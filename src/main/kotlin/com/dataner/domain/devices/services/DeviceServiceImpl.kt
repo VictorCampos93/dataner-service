@@ -1,9 +1,9 @@
 package com.dataner.domain.devices.services
 
+import com.dataner.domain.devices.entities.AllDeviceState
 import com.dataner.domain.devices.entities.Device
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.contracts.DeviceService
-import java.lang.Exception
 
 class DeviceServiceImpl(
     private val deviceRepository: DeviceRepository
@@ -17,6 +17,10 @@ class DeviceServiceImpl(
         }
     }
 
-    override fun allDeviceTags(deviceId: String) = deviceRepository.allDeviceTags(deviceId)
+    override fun allDeviceTags(deviceId: String) =
+        deviceRepository.allDeviceTags(deviceId = deviceId)
+
+    override fun allBuildingDeviceState(buildingId: Int): AllDeviceState =
+        deviceRepository.allBuildingDeviceState(buildingId = buildingId)
 
 }

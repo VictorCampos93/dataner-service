@@ -27,6 +27,7 @@ object Dataner: KoinComponent {
 //        DatabaseManager.createTags()
 //        DatabaseManager.createFloor()
 //        DatabaseManager.createWorkplace()
+//        DatabaseManager.createDevice()
 
         return Javalin.create()
             .apply {
