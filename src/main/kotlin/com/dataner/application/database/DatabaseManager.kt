@@ -128,6 +128,16 @@ object DatabaseManager {
             it[floorNumber] = 1
             it[buildingId] = 2
         }
+
+        FloorTable.insert {
+            it[floorNumber] = 2
+            it[buildingId] = 1
+        }
+
+        FloorTable.insert {
+            it[floorNumber] = 2
+            it[buildingId] = 2
+        }
     }
 
     fun createWorkplace() = transaction {
@@ -139,6 +149,16 @@ object DatabaseManager {
         WorkplaceTable.insert {
             it[workplaceDescription] = "Sala de reunião"
             it[floorId] = 2
+        }
+
+        WorkplaceTable.insert {
+            it[workplaceDescription] = "Sala de reunião"
+            it[floorId] = 3
+        }
+
+        WorkplaceTable.insert {
+            it[workplaceDescription] = "Sala de reunião"
+            it[floorId] = 4
         }
     }
 
@@ -173,6 +193,38 @@ object DatabaseManager {
             it[deviceDescription] = "Device of Test"
             it[deviceType] = "Luz"
             it[workplaceId] = 2
+        }
+
+        DeviceTable.insert {
+            it[deviceId] = "1234567"
+            it[deviceState] = false
+            it[deviceDescription] = "Device of Test"
+            it[deviceType] = "Luz"
+            it[workplaceId] = 2
+        }
+
+        DeviceTable.insert {
+            it[deviceId] = "12345678"
+            it[deviceState] = true
+            it[deviceDescription] = "Device of Test"
+            it[deviceType] = "Luz"
+            it[workplaceId] = 3
+        }
+
+        DeviceTable.insert {
+            it[deviceId] = "123456789"
+            it[deviceState] = true
+            it[deviceDescription] = "Device of Test"
+            it[deviceType] = "Luz"
+            it[workplaceId] = 3
+        }
+
+        DeviceTable.insert {
+            it[deviceId] = "1234567890"
+            it[deviceState] = false
+            it[deviceDescription] = "Device of Test"
+            it[deviceType] = "Luz"
+            it[workplaceId] = 4
         }
     }
 }

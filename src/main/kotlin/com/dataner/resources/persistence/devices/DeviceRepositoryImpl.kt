@@ -27,11 +27,11 @@ class DeviceRepositoryImpl : DeviceRepository {
 
         transaction {
             DeviceTable.insert {
-                it[DeviceTable.deviceId] = device.deviceId
-                it[DeviceTable.deviceDescription] = device.deviceDescription
-                it[DeviceTable.deviceState] = device.deviceState
-                it[DeviceTable.deviceType] = device.deviceType
-                it[DeviceTable.workplaceId] = device.workplaceId
+                it[deviceId] = device.deviceId
+                it[deviceDescription] = device.deviceDescription
+                it[deviceState] = device.deviceState
+                it[deviceType] = device.deviceType
+                it[workplaceId] = device.workplaceId
             }
         }.also {
             logger.debug(
@@ -74,6 +74,29 @@ class DeviceRepositoryImpl : DeviceRepository {
                     WorkplaceTable.floorId.eq(FloorTable.floorId).and(
                         FloorTable.buildingId.eq(buildingId)
                     )
+                )
+            }.map { allDevicesState ->
+                if (allDevicesState[DeviceTable.deviceState])
+                    devicesOn++
+
+                allDevices++
+            }
+
+        AllDeviceState(
+            devicesOn = devicesOn,
+            devicesOff = (allDevices - devicesOn),
+            allDevices = allDevices
+        )
+    }
+
+    override fun allFloorDeviceState(floorId: Int): AllDeviceState = transaction {
+        var devicesOn = 0
+        var allDevices = 0
+
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
+            .select {
+                DeviceTable.workplaceId.eq(WorkplaceTable.workplaceId).and(
+                    WorkplaceTable.floorId.eq(floorId)
                 )
             }.map { allDevicesState ->
                 if (allDevicesState[DeviceTable.deviceState])

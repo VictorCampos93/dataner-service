@@ -31,4 +31,11 @@ class DeviceController(
         ctx.json(it)
     }
 
+    fun allFloorDeviceState(ctx: Context) = ctx.pathParam("floor").let {
+        deviceService.allFloorDeviceState(it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
 }

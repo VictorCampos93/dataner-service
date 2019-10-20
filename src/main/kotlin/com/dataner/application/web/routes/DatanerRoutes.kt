@@ -22,6 +22,7 @@ class DatanerRoutes(
 
                 path("state") {
                     get("building/:building") { deviceController.allBuildingDeviceState(it) }
+                    get("floor/:floor") { deviceController.allFloorDeviceState(it) }
                 }
             }
 

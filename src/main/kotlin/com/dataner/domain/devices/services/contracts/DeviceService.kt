@@ -9,4 +9,5 @@ interface DeviceService {
     fun create(device: Device)
     fun allDeviceTags(deviceId: String): List<DeviceTags>
     fun allBuildingDeviceState(buildingId: Int): AllDeviceState
+    fun allFloorDeviceState(floorId: Int): AllDeviceState
 }
