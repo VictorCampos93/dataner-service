@@ -54,14 +54,21 @@ class DeviceRepositoryImpl : DeviceRepository {
             .select {
                 DeviceTagsTable.deviceId.eq(deviceId)
                     .and(TagTable.tagId.eq(DeviceTagsTable.tagId))
-            }
-            .map { deviceTags ->
+            }.map { deviceTags ->
                 DeviceTags(
                     deviceId = deviceId,
                     tagId = deviceTags[DeviceTagsTable.tagId],
                     tagDescription = deviceTags[TagTable.tagDescription]
                 )
             }
+    }
+
+    override fun deviceState(deviceId: String): Boolean = transaction {
+        DeviceTable.select {
+            DeviceTable.deviceId.eq(deviceId)
+        }.all {deviceState ->
+            deviceState[DeviceTable.deviceState]
+        }
     }
 
     override fun allBuildingDeviceState(buildingId: Int): AllDeviceState = transaction {

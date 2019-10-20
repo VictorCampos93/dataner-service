@@ -20,6 +20,9 @@ class DeviceServiceImpl(
     override fun allDeviceTags(deviceId: String) =
         deviceRepository.allDeviceTags(deviceId = deviceId)
 
+    override fun deviceState(deviceId: String): Boolean =
+        deviceRepository.deviceState(deviceId = deviceId)
+
     override fun allBuildingDeviceState(buildingId: Int): AllDeviceState =
         deviceRepository.allBuildingDeviceState(buildingId = buildingId)
 

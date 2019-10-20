@@ -21,6 +21,7 @@ class DatanerRoutes(
                 post { deviceController.createDevice(it) }
 
                 path("state") {
+                    get(":device") { deviceController.deviceState(it) }
                     get("building/:building") { deviceController.allBuildingDeviceState(it) }
                     get("floor/:floor") { deviceController.allFloorDeviceState(it) }
                     get("workplace/:workplace") { deviceController.allWorkplaceDeviceState(it) }
