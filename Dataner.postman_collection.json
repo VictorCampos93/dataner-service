@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d6c1ce49-cd16-46c2-8763-c049d56b4727",
+		"_postman_id": "a2eedc8f-65dd-47b6-be3d-912fc3b00e5e",
 		"name": "Dataner",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -249,7 +249,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"deviceId\": \"asd123\",\n\t\"deviceDescription\": \"Device do Ar-Condicionado\",\n\t\"environmentId\": \"123asd\",\n\t\"tagId\": [ 1, 2, 3 ]\n}"
+							"raw": "{\n\t\"deviceId\": \"asd123\",\n\t\"deviceDescription\": \"Device do Ar-Condicionado\",\n\t\"deviceType\": \"LUZ\",\n\t\"tagId\": [ 1, 2, 3 ],\n\t\"workplaceId\": \"1\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/dataner/device",
@@ -259,6 +259,129 @@
 							"path": [
 								"dataner",
 								"device"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Estado dos Devices de um prédio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/state/building/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"state",
+								"building",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Estado dos Devices de um andar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/state/floor/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"state",
+								"floor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Estado dos Devices de um ambiente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/state/workplace/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"state",
+								"workplace",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Estado de um Device",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/state/1234567",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"state",
+								"1234567"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Todas as Tags de um Device",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/tags/asd123",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"tags",
+								"asd123"
 							]
 						}
 					},
