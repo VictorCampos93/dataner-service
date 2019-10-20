@@ -111,4 +111,25 @@ class DeviceRepositoryImpl : DeviceRepository {
             allDevices = allDevices
         )
     }
+
+    override fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState = transaction {
+        var devicesOn = 0
+        var allDevices = 0
+
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
+            .select {
+                DeviceTable.workplaceId.eq(workplaceId)
+            }.map { allDevicesState ->
+                if (allDevicesState[DeviceTable.deviceState])
+                    devicesOn++
+
+                allDevices++
+            }
+
+        AllDeviceState(
+            devicesOn = devicesOn,
+            devicesOff = (allDevices - devicesOn),
+            allDevices = allDevices
+        )
+    }
 }

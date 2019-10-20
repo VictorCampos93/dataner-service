@@ -26,4 +26,7 @@ class DeviceServiceImpl(
     override fun allFloorDeviceState(floorId: Int): AllDeviceState =
         deviceRepository.allFloorDeviceState(floorId = floorId)
 
+    override fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState =
+        deviceRepository.allWorkplaceDeviceState(workplaceId = workplaceId)
+
 }

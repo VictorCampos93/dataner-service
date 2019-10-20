@@ -18,21 +18,28 @@ class DeviceController(
     }
 
     fun deviceTags(ctx: Context) = ctx.pathParam("device").let {
-        deviceService.allDeviceTags(it)
+        deviceService.allDeviceTags(deviceId = it)
     }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
     }
 
     fun allBuildingDeviceState(ctx: Context) = ctx.pathParam("building").let {
-        deviceService.allBuildingDeviceState(it.toInt())
+        deviceService.allBuildingDeviceState(buildingId = it.toInt())
     }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
     }
 
     fun allFloorDeviceState(ctx: Context) = ctx.pathParam("floor").let {
-        deviceService.allFloorDeviceState(it.toInt())
+        deviceService.allFloorDeviceState(floorId = it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
+    fun allWorkplaceDeviceState(ctx: Context) = ctx.pathParam("workplace").let {
+        deviceService.allWorkplaceDeviceState(workplaceId = it.toInt())
     }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)

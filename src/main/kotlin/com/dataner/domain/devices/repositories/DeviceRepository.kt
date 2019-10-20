@@ -11,5 +11,6 @@ interface DeviceRepository {
     fun allDeviceTags(deviceId: String): List<DeviceTags>
     fun allBuildingDeviceState(buildingId: Int): AllDeviceState
     fun allFloorDeviceState(floorId: Int): AllDeviceState
+    fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState
 
 }
