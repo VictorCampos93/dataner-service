@@ -17,7 +17,6 @@ class DatanerRoutes(
         path("dataner") {
 
             path("device") {
-                get(":device") { deviceController.deviceTags(it) }
                 post { deviceController.createDevice(it) }
 
                 path("state") {
@@ -25,6 +24,10 @@ class DatanerRoutes(
                     get("building/:building") { deviceController.allBuildingDeviceState(it) }
                     get("floor/:floor") { deviceController.allFloorDeviceState(it) }
                     get("workplace/:workplace") { deviceController.allWorkplaceDeviceState(it) }
+                }
+
+                path("tags") {
+                    get(":device") { deviceController.deviceTags(it) }
                 }
             }
 
