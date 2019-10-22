@@ -3,6 +3,8 @@ package com.dataner.application.web
 import com.dataner.application.database.DatabaseManager
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
+import com.dataner.commom.koin.buildingModule
+import com.dataner.commom.koin.companyModule
 import com.dataner.commom.koin.datanerModule
 import com.dataner.commom.koin.deviceModule
 import com.dataner.commom.koin.tagModule
@@ -44,6 +46,8 @@ object Dataner: KoinComponent {
             listOf(
                 datanerModule,
                 deviceModule,
+                companyModule,
+                buildingModule,
                 tagModule
             )
         )
