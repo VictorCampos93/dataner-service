@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a2eedc8f-65dd-47b6-be3d-912fc3b00e5e",
+		"_postman_id": "979ba374-706a-4567-a891-acf16f06c343",
 		"name": "Dataner",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -382,6 +382,29 @@
 								"device",
 								"tags",
 								"asd123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OK] Todos Devices de um Workplace",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device",
+								"1"
 							]
 						}
 					},

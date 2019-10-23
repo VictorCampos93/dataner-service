@@ -1,6 +1,7 @@
 package com.dataner.resources.persistence.devices
 
 import com.dataner.domain.devices.entities.AllDeviceState
+import com.dataner.domain.devices.entities.AllWorkplaceDevices
 import com.dataner.domain.devices.entities.Device
 import com.dataner.domain.devices.entities.DeviceTags
 import com.dataner.domain.devices.repositories.DeviceRepository
@@ -66,7 +67,7 @@ class DeviceRepositoryImpl : DeviceRepository {
     override fun deviceState(deviceId: String): Boolean = transaction {
         DeviceTable.select {
             DeviceTable.deviceId.eq(deviceId)
-        }.all {deviceState ->
+        }.all { deviceState ->
             deviceState[DeviceTable.deviceState]
         }
     }
@@ -138,5 +139,26 @@ class DeviceRepositoryImpl : DeviceRepository {
             devicesOff = (allDevices - devicesOn),
             allDevices = allDevices
         )
+    }
+
+    override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> = transaction {
+        (DeviceTable innerJoin DeviceTagsTable innerJoin TagTable)
+            .select {
+                DeviceTable.workplaceId.eq(workplaceId).and(
+                    DeviceTagsTable.deviceId.eq(DeviceTable.deviceId).and(
+                        TagTable.tagId.eq(DeviceTagsTable.tagId)
+                    )
+                )
+            }.map { allWorkplaceDevices ->
+                AllWorkplaceDevices(
+                    deviceId = allWorkplaceDevices[DeviceTable.deviceId],
+                    deviceDescription = allWorkplaceDevices[DeviceTable.deviceDescription],
+                    deviceState = allWorkplaceDevices[DeviceTable.deviceState],
+                    deviceType = allWorkplaceDevices[DeviceTable.deviceType],
+                    workplaceId = allWorkplaceDevices[DeviceTable.workplaceId],
+                    tagId = allWorkplaceDevices[DeviceTagsTable.tagId],
+                    tagDescription = allWorkplaceDevices[TagTable.tagDescription]
+                )
+            }
     }
 }
