@@ -38,6 +38,7 @@ class DatanerRoutes(
 
             path("floor") {
                 post { floorController.createFloor(it) }
+                get(":building") { floorController.allBuildingFloors(it) }
             }
 
         }

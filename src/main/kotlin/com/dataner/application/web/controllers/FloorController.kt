@@ -14,4 +14,15 @@ class FloorController(
         ctx.status(HttpStatus.OK_200)
         ctx.json("Andar cadastrado com sucesso")
     }
+
+    fun allBuildingFloors(ctx: Context) = ctx.pathParam("building").let {
+        floorService.allBuildingFloors(it.toInt())
+    }.also {
+        if (it.isEmpty()) {
+            ctx.status(HttpStatus.NO_CONTENT_204)
+        } else {
+            ctx.status(HttpStatus.OK_200)
+            ctx.json(it)
+        }
+    }
 }

@@ -10,4 +10,8 @@ class FloorServiceImpl (
     override fun create(floor: Floor) {
         floorRepository.createFloor(floor)
     }
+
+    override fun allBuildingFloors(buildingId: Int): List<Floor> =
+        floorRepository.allBuildingFloors(buildingId = buildingId)
+
 }
