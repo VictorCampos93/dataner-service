@@ -12,6 +12,6 @@ class FloorController(
         floorService.create(it.toFloor())
     }.also {
         ctx.status(HttpStatus.OK_200)
-        ctx.json("Andar cadstro com sucesso")
+        ctx.json("Andar cadastrado com sucesso")
     }
 }
