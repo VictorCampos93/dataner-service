@@ -1,10 +1,7 @@
 package com.dataner.application.web.routes
 
 import com.dataner.application.web.controllers.*
-import io.javalin.apibuilder.ApiBuilder.path
-import io.javalin.apibuilder.ApiBuilder.post
-import io.javalin.apibuilder.ApiBuilder.get
-import io.javalin.apibuilder.ApiBuilder.delete
+import io.javalin.apibuilder.ApiBuilder.*
 
 class DatanerRoutes(
     private val deviceController: DeviceController,
@@ -39,6 +36,8 @@ class DatanerRoutes(
             path("floor") {
                 post { floorController.createFloor(it) }
                 get(":building") { floorController.allBuildingFloors(it) }
+                delete(":floor") { floorController.deleteFloor(it) }
+                put { floorController.updateFloor(it)}
             }
 
         }
