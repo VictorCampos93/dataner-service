@@ -4,7 +4,12 @@ import com.dataner.domain.floor.entities.Floor
 
 interface FloorService {
 
-    fun create(floor: Floor)
+    fun createFloor(floor: Floor)
+
+    fun updateFloor(floor: Floor)
+
+    fun deleteFloor(floorId: Int)
 
     fun allBuildingFloors(buildingId: Int): List<Floor>
+
 }
