@@ -45,8 +45,8 @@ object Dataner: KoinComponent {
                 companyModule,
                 buildingModule,
                 tagModule,
-                workplaceModule
-
+                workplaceModule,
+                floorModule
             )
         )
     }

@@ -11,6 +11,9 @@ import com.dataner.domain.company.services.contracts.CompanyService
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.DeviceServiceImpl
 import com.dataner.domain.devices.services.contracts.DeviceService
+import com.dataner.domain.floor.repositories.FloorRepository
+import com.dataner.domain.floor.services.FloorServiceImpl
+import com.dataner.domain.floor.services.contracts.FloorService
 import com.dataner.domain.tags.repositories.TagRepository
 import com.dataner.domain.tags.services.TagServiceImpl
 import com.dataner.domain.tags.services.contracts.TagService
@@ -20,13 +23,14 @@ import com.dataner.domain.workplaces.services.contracts.WorkplaceService
 import com.dataner.resources.persistence.buildings.BuildingRepositoryImpl
 import com.dataner.resources.persistence.companies.CompanyRepositoryImpl
 import com.dataner.resources.persistence.devices.DeviceRepositoryImpl
+import com.dataner.resources.persistence.floors.FloorRepositoryImpl
 import com.dataner.resources.persistence.tags.TagRepositoryImpl
 import com.dataner.resources.persistence.workplaces.WorkplaceRepositoryImpl
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
 
 val datanerModule: Module = module {
-    single { DatanerRoutes(get(), get(), get(), get(), get()) }
+    single { DatanerRoutes(get(), get(), get(), get(), get(), get()) }
 }
 
 val deviceModule: Module = module {
@@ -62,4 +66,11 @@ val tagModule: Module = module {
     single { TagController(get()) }
     single { TagServiceImpl(get()) as TagService }
     single { TagRepositoryImpl() as TagRepository }
+}
+
+val floorModule: Module = module {
+
+    single { FloorController(get()) }
+    single { FloorServiceImpl(get()) as FloorService }
+    single { FloorRepositoryImpl() as FloorRepository}
 }

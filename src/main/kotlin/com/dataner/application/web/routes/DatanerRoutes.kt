@@ -11,7 +11,9 @@ class DatanerRoutes(
     private val tagController: TagController,
     private val companyController: CompanyController,
     private val buildingController: BuildingController,
-    private val workplaceController: WorkplaceController
+    private val workplaceController: WorkplaceController,
+    private val floorController: FloorController
+
 ) {
 
     fun register() {
@@ -27,12 +29,18 @@ class DatanerRoutes(
                 delete(":tag") { tagController.deleteTag(it) }
                 post { tagController.createTag(it) }
             }
-            path("company"){
+            path("company") {
                 post { companyController.createCompany(it) }
             }
 
             path("building") {
-                post { buildingController.createBuilding(it)}
+                post { buildingController.createBuilding(it) }
+
+            }
+
+            path("floor") {
+                post { floorController.createFloor(it) }
+                get(":building") { floorController.allBuildingFloors(it) }
             }
 
             path("workpalce") {
