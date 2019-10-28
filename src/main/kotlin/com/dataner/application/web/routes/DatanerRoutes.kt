@@ -23,6 +23,7 @@ class DatanerRoutes(
 
                 path("all") {
                     get("workplace/:workplace") { deviceController.allWorkplaceDevices(it) }
+                    get("building/:building") { deviceController.allBuildingDevices(it) }
                 }
 
                 path("state") {

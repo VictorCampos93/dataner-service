@@ -1,9 +1,6 @@
 package com.dataner.resources.persistence.devices
 
-import com.dataner.domain.devices.entities.AllDeviceState
-import com.dataner.domain.devices.entities.AllWorkplaceDevices
-import com.dataner.domain.devices.entities.Device
-import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.*
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.tags.entities.Tag
 import com.dataner.resources.persistence.database.tables.BuildingTable
@@ -199,5 +196,31 @@ class DeviceRepositoryImpl : DeviceRepository {
                 }
             )
         }
+    }
+
+    override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> = transaction {
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable)
+            .select {
+                DeviceTable.workplaceId.eq(buildingId)
+            }.map { allWorkplaceDevices ->
+                AllBuildingDevices(
+                    deviceId = allWorkplaceDevices[DeviceTable.deviceId],
+                    deviceDescription = allWorkplaceDevices[DeviceTable.deviceDescription],
+                    deviceState = allWorkplaceDevices[DeviceTable.deviceState],
+                    deviceType = allWorkplaceDevices[DeviceTable.deviceType],
+                    workplaceId = allWorkplaceDevices[DeviceTable.workplaceId],
+                    buildingId = buildingId,
+                    floorId = allWorkplaceDevices[FloorTable.floorId],
+                    tags = (TagTable innerJoin DeviceTagsTable).select {
+                        DeviceTagsTable.deviceId.eq(allWorkplaceDevices[DeviceTable.deviceId])
+                    }.map { tags ->
+                        Tag(
+                            tagId = tags[TagTable.tagId],
+                            tagDescription = tags[TagTable.tagDescription],
+                            buildingId = tags[TagTable.buildingId]
+                        )
+                    }
+                )
+            }
     }
 }

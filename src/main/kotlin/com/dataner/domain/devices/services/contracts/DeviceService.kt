@@ -1,9 +1,6 @@
 package com.dataner.domain.devices.services.contracts
 
-import com.dataner.domain.devices.entities.AllDeviceState
-import com.dataner.domain.devices.entities.AllWorkplaceDevices
-import com.dataner.domain.devices.entities.Device
-import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.*
 
 interface DeviceService {
 
@@ -24,4 +21,6 @@ interface DeviceService {
     fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState
 
     fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices>
+
+    fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices>
 }

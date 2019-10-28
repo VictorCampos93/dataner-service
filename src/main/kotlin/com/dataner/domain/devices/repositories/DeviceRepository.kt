@@ -1,9 +1,6 @@
 package com.dataner.domain.devices.repositories
 
-import com.dataner.domain.devices.entities.AllDeviceState
-import com.dataner.domain.devices.entities.AllWorkplaceDevices
-import com.dataner.domain.devices.entities.Device
-import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.*
 
 interface DeviceRepository {
 
@@ -29,4 +26,5 @@ interface DeviceRepository {
 
     fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices>
 
+    fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices>
 }

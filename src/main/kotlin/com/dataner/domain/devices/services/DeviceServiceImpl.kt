@@ -1,5 +1,6 @@
 package com.dataner.domain.devices.services
 
+import com.dataner.domain.devices.entities.AllBuildingDevices
 import com.dataner.domain.devices.entities.AllDeviceState
 import com.dataner.domain.devices.entities.AllWorkplaceDevices
 import com.dataner.domain.devices.entities.Device
@@ -44,5 +45,8 @@ class DeviceServiceImpl(
 
     override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> =
         deviceRepository.allWorkplaceDevices(workplaceId = workplaceId)
+
+    override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> =
+            deviceRepository.allBuildingDevices(buildingId = buildingId)
 
 }
