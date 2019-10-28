@@ -9,6 +9,12 @@ interface DeviceRepository {
 
     fun createDevice(device: Device)
 
+    fun device(deviceId: String): Device
+
+    fun deleteDevice(deviceId: String)
+
+    fun deleteDeviceTags(deviceId: String)
+
     fun createDeviceTags(deviceId: String, tagId: Int)
 
     fun allDeviceTags(deviceId: String): List<DeviceTags>

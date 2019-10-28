@@ -12,9 +12,22 @@ class DeviceController(
 
     fun createDevice(ctx: Context) = ctx.body<Device>().let {
         Validate.validate(Device::class, it)
-        deviceService.create(it.toDevice())
+        deviceService.create(device = it.toDevice())
     }.also {
         ctx.status(HttpStatus.CREATED_201)
+    }
+
+    fun device(ctx: Context) = ctx.pathParam("device").let {
+        deviceService.device(deviceId = it)
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
+    fun deleteDevice(ctx: Context) = ctx.pathParam("device").let {
+        deviceService.delete(deviceId = it)
+    }.also {
+        ctx.status(HttpStatus.OK_200)
     }
 
     fun deviceTags(ctx: Context) = ctx.pathParam("device").let {

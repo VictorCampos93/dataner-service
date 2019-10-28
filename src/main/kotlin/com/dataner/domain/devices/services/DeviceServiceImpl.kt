@@ -18,6 +18,15 @@ class DeviceServiceImpl(
         }
     }
 
+    override fun device(deviceId: String): Device =
+        deviceRepository.device(deviceId = deviceId)
+
+    override fun delete(deviceId: String) =
+        deviceRepository.deleteDeviceTags(deviceId = deviceId)
+            .also {
+                deviceRepository.deleteDevice(deviceId = deviceId)
+            }
+
     override fun allDeviceTags(deviceId: String) =
         deviceRepository.allDeviceTags(deviceId = deviceId)
 

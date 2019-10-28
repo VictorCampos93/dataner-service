@@ -5,6 +5,7 @@ import com.dataner.domain.devices.entities.AllWorkplaceDevices
 import com.dataner.domain.devices.entities.Device
 import com.dataner.domain.devices.entities.DeviceTags
 import com.dataner.domain.devices.repositories.DeviceRepository
+import com.dataner.domain.tags.entities.Tag
 import com.dataner.resources.persistence.database.tables.BuildingTable
 import com.dataner.resources.persistence.database.tables.DeviceTable
 import com.dataner.resources.persistence.database.tables.DeviceTagsTable
@@ -12,6 +13,7 @@ import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.TagTable
 import com.dataner.resources.persistence.database.tables.WorkplaceTable
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -38,6 +40,41 @@ class DeviceRepositoryImpl : DeviceRepository {
             logger.debug(
                 "saved to database successfully"
             )
+        }
+    }
+
+    override fun device(deviceId: String): Device = transaction {
+        DeviceTable.select {
+            DeviceTable.deviceId eq deviceId
+        }.map {
+            Device(
+                deviceId = it[DeviceTable.deviceId],
+                deviceDescription = it[DeviceTable.deviceDescription],
+                deviceState = it[DeviceTable.deviceState],
+                deviceType = it[DeviceTable.deviceType],
+                workplaceId = it[DeviceTable.workplaceId],
+                tagId = DeviceTagsTable.select {
+                    DeviceTagsTable.deviceId eq deviceId
+                }.map { tags ->
+                    tags[DeviceTagsTable.tagId]
+                }
+            )
+        }.first()
+    }
+
+    override fun deleteDevice(deviceId: String) {
+        transaction {
+            DeviceTable.deleteWhere {
+                DeviceTable.deviceId eq deviceId
+            }
+        }
+    }
+
+    override fun deleteDeviceTags(deviceId: String) {
+        transaction {
+            DeviceTagsTable.deleteWhere {
+                DeviceTagsTable.deviceId eq deviceId
+            }
         }
     }
 
@@ -142,23 +179,25 @@ class DeviceRepositoryImpl : DeviceRepository {
     }
 
     override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> = transaction {
-        (DeviceTable innerJoin DeviceTagsTable innerJoin TagTable)
-            .select {
-                DeviceTable.workplaceId.eq(workplaceId).and(
-                    DeviceTagsTable.deviceId.eq(DeviceTable.deviceId).and(
-                        TagTable.tagId.eq(DeviceTagsTable.tagId)
+        DeviceTable.select {
+            DeviceTable.workplaceId.eq(workplaceId)
+        }.map { allWorkplaceDevices ->
+            AllWorkplaceDevices(
+                deviceId = allWorkplaceDevices[DeviceTable.deviceId],
+                deviceDescription = allWorkplaceDevices[DeviceTable.deviceDescription],
+                deviceState = allWorkplaceDevices[DeviceTable.deviceState],
+                deviceType = allWorkplaceDevices[DeviceTable.deviceType],
+                workplaceId = allWorkplaceDevices[DeviceTable.workplaceId],
+                tags = (TagTable innerJoin DeviceTagsTable).select {
+                    DeviceTagsTable.deviceId.eq(allWorkplaceDevices[DeviceTable.deviceId])
+                }.map { tags ->
+                    Tag(
+                        tagId = tags[TagTable.tagId],
+                        tagDescription = tags[TagTable.tagDescription],
+                        buildingId = tags[TagTable.buildingId]
                     )
-                )
-            }.map { allWorkplaceDevices ->
-                AllWorkplaceDevices(
-                    deviceId = allWorkplaceDevices[DeviceTable.deviceId],
-                    deviceDescription = allWorkplaceDevices[DeviceTable.deviceDescription],
-                    deviceState = allWorkplaceDevices[DeviceTable.deviceState],
-                    deviceType = allWorkplaceDevices[DeviceTable.deviceType],
-                    workplaceId = allWorkplaceDevices[DeviceTable.workplaceId],
-                    tagId = allWorkplaceDevices[DeviceTagsTable.tagId],
-                    tagDescription = allWorkplaceDevices[TagTable.tagDescription]
-                )
-            }
+                }
+            )
+        }
     }
 }

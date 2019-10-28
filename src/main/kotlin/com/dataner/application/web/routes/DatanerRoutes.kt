@@ -17,8 +17,13 @@ class DatanerRoutes(
         path("dataner") {
 
             path("device") {
+                get(":device") { deviceController.device(it) }
                 post { deviceController.createDevice(it) }
-                get(":workplace") { deviceController.allWorkplaceDevices(it) }
+                delete(":device") { deviceController.deleteDevice(it) }
+
+                path("all") {
+                    get("workplace/:workplace") { deviceController.allWorkplaceDevices(it) }
+                }
 
                 path("state") {
                     get(":device") { deviceController.deviceState(it) }
