@@ -10,4 +10,12 @@ class WorkplaceServiceImpl(
     override fun createWorkplace(workplace: Workplace) {
        workplaceRepository.createWorkplace(workplace)
     }
+
+    override fun updateWorkplace(workplace: Workplace) {
+        workplaceRepository.updateWorkplace(workplace)
+    }
+
+    override fun allFloorWorkplaces(floorId: Int): List<Workplace> =
+        workplaceRepository.allFloorWorkplaces(floorId = floorId)
+
 }

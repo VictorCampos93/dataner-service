@@ -42,8 +42,10 @@ class DatanerRoutes(
                 put { floorController.updateFloor(it)}
             }
 
-            path("workpalce") {
+            path("workplace") {
                 post { workplaceController.createWorkplace(it) }
+                get("all/:floor") { workplaceController.allFloorWorkplaces(it) }
+                put{ workplaceController.updateWorkplace(it)}
             }
 
         }
