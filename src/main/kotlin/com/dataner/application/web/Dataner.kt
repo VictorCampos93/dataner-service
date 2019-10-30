@@ -1,6 +1,7 @@
 package com.dataner.application.web
 
 import com.dataner.application.database.DatabaseManager
+import com.dataner.application.exceptions.DatanerException
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
 import com.dataner.commom.koin.*
@@ -10,7 +11,7 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.StandAloneContext
 import org.koin.standalone.inject
 
-object Dataner: KoinComponent {
+object Dataner : KoinComponent {
 
     private val datanerRoutes: DatanerRoutes by inject()
 
@@ -31,7 +32,10 @@ object Dataner: KoinComponent {
                 }
 
                 exception(Exception::class.java) { e, ctx ->
-                    ErrorHandler.otherError(ctx, e)
+                    when (e) {
+                       is DatanerException -> ErrorHandler.datanerError(ctx, e)
+                        else -> ErrorHandler.otherError(ctx, e)
+                    }
                 }
 
             }.start(7000)
