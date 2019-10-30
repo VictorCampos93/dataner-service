@@ -6,4 +6,6 @@ interface BuildingService {
 
     fun create(building: Building)
 
+    fun getCompanyBuildings(companyId: Int): List<Building>
+
 }

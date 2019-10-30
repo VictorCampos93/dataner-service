@@ -10,8 +10,11 @@ class BuildingServiceImpl (
 ): BuildingService {
     override fun create(building: Building) {
 
-        if(building.country.isBlank()) throw Exception()
+        if (building.country.isBlank()) throw Exception()
 
         buildingRepository.createBuilding(building)
     }
+
+    override fun getCompanyBuildings(companyId: Int): List<Building> =
+        buildingRepository.getCompanyBuildings(companyId)
 }
