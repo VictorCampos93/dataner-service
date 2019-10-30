@@ -12,7 +12,11 @@ class WorkplaceServiceImpl(
     }
 
     override fun updateWorkplace(workplace: Workplace) {
+        if (workplaceRepository.selectWorkplace(workplace.workplaceId!!))
+            throw Exception()
+
         workplaceRepository.updateWorkplace(workplace)
+
     }
 
     override fun allFloorWorkplaces(floorId: Int): List<Workplace> =

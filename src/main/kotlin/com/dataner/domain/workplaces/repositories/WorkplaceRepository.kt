@@ -8,5 +8,7 @@ interface WorkplaceRepository {
 
     fun updateWorkplace(workplace: Workplace)
 
+    fun selectWorkplace(workplaceId: Int): Boolean
+
     fun allFloorWorkplaces(floorId: Int): List<Workplace>
 }

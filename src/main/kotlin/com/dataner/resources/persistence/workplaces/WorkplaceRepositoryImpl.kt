@@ -4,6 +4,7 @@ import com.dataner.domain.workplaces.entities.Workplace
 import com.dataner.domain.workplaces.repositories.WorkplaceRepository
 import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.WorkplaceTable
+import org.jetbrains.exposed.sql.SqlExpressionBuilder
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -30,18 +31,24 @@ class WorkplaceRepositoryImpl : WorkplaceRepository {
 
     override fun updateWorkplace(workplace: Workplace) {
         transaction {
-            WorkplaceTable.select {
-                WorkplaceTable.workplaceId eq workplace.workplaceId!!
-            }.map {
-                WorkplaceTable.update({
-                    WorkplaceTable.workplaceId eq workplace.workplaceId!!
-                }) {
-                    it[WorkplaceTable.floorId] = workplace.floorId
-                    it[WorkplaceTable.workplaceDescription] = workplace.description
-                }
+
+            WorkplaceTable.update({
+                WorkplaceTable.workplaceId.eq(workplace.workplaceId!!)
+            }) {
+                it[floorId] = workplace.floorId
+                it[workplaceDescription] = workplace.description
+
             }
+
         }
     }
+
+    override fun selectWorkplace(workplaceId: Int) : Boolean = transaction {
+            WorkplaceTable.select{
+                WorkplaceTable.workplaceId eq workplaceId
+            }.count() == 0
+        }
+
 
     override fun allFloorWorkplaces(floorId: Int): List<Workplace> = transaction {
         WorkplaceTable.select {
