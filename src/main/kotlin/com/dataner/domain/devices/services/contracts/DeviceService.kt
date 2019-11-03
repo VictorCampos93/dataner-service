@@ -14,6 +14,8 @@ interface DeviceService {
 
     fun allDeviceTags(deviceId: String): List<DeviceTags>
 
+    fun deleteDeviceTags(deviceTags: DeviceTags)
+
     fun deviceState(deviceId: String): Boolean
 
     fun allBuildingDeviceState(buildingId: Int): AllDeviceState

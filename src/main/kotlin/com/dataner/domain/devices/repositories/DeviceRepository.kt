@@ -12,7 +12,7 @@ interface DeviceRepository {
 
     fun updateDevice(device: DeviceUpdate)
 
-    fun deleteDeviceTags(deviceId: String)
+    fun deleteDeviceTags(deviceTags: DeviceTags)
 
     fun createDeviceTags(deviceId: String, tagId: Int)
 

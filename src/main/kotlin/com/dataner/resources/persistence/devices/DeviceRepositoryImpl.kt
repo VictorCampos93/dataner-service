@@ -78,10 +78,12 @@ class DeviceRepositoryImpl : DeviceRepository {
         }
     }
 
-    override fun deleteDeviceTags(deviceId: String) {
+    override fun deleteDeviceTags(deviceTags: DeviceTags) {
         transaction {
             DeviceTagsTable.deleteWhere {
-                DeviceTagsTable.deviceId eq deviceId
+                DeviceTagsTable.deviceId.eq(deviceTags.deviceId).and(
+                    DeviceTagsTable.tagId.eq(deviceTags.tagId)
+                )
             }
         }
     }

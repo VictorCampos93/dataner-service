@@ -1,6 +1,7 @@
 package com.dataner.application.web.controllers
 
 import com.dataner.application.web.entities.Device
+import com.dataner.application.web.entities.DeviceTags
 import com.dataner.application.web.entities.DeviceUpdate
 import com.dataner.commom.ext.Validate
 import com.dataner.domain.devices.services.contracts.DeviceService
@@ -42,6 +43,12 @@ class DeviceController(
     }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
+    }
+
+    fun deleteDeviceTags(ctx: Context) = ctx.body<DeviceTags>().let {
+        deviceService.deleteDeviceTags(deviceTags = it.toDeviceTags())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
     }
 
     fun deviceState(ctx: Context) = ctx.pathParam("device").let {
