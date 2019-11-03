@@ -14,10 +14,17 @@ class BuildingController(
 
     }.also {
         ctx.status(HttpStatus.OK_200)
-        ctx.json("Empresa cadastrada com sucesso")
+        ctx.json("Prédio cadastrado com sucesso")
     }
 
-    fun getCompanyBuildings(ctx: Context) = ctx.pathParam("companyId").let {
+    fun updateBuilding(ctx: Context) = ctx.body<Building>().let {
+        buildingService.updateBuilding(it.toBuilding())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json("Prédio atualizado com sucesso")
+    }
+
+    fun getCompanyBuildings(ctx: Context) = ctx.pathParam("company").let {
         buildingService.getCompanyBuildings(it.toInt())
     }.also {
         if (it.isEmpty()) {
@@ -25,5 +32,12 @@ class BuildingController(
         }
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
+    }
+
+    fun deleteBuilding(ctx: Context) = ctx.pathParam("building").let {
+        buildingService.deleteBuilding(it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json("Prédio apagado com sucesso")
     }
 }

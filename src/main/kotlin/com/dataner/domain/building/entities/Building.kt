@@ -8,6 +8,7 @@ data class Building (
     val address :String,
     val addressNumber :Int,
     val zipCode :String,
-    val companyId :Int
+    val companyId :Int,
+    val buildingId :Int?
 
 )

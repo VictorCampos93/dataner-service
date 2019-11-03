@@ -10,7 +10,8 @@ data class Building (
     val address :String,
     val addressNumber :Int,
     val zipCode :String,
-    val companyId: Int
+    val companyId: Int,
+    val buildingId: Int? = null
 
 ){
     fun toBuilding() = Building (
@@ -21,7 +22,8 @@ data class Building (
         address = address,
         addressNumber = addressNumber,
         zipCode = zipCode,
-        companyId =  companyId
+        companyId =  companyId,
+        buildingId = buildingId
     )
 }
 
