@@ -38,6 +38,7 @@ class DatanerRoutes(
                 path("tags") {
                     get(":device") { deviceController.deviceTags(it) }
                     delete("device") { deviceController.deleteDeviceTags(it) }
+                    post { deviceController.createDeviceTags(it) }
                 }
             }
 

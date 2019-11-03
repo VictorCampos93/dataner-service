@@ -28,6 +28,9 @@ class DeviceServiceImpl(
     override fun allDeviceTags(deviceId: String) =
         deviceRepository.allDeviceTags(deviceId = deviceId)
 
+    override fun createDeviceTags(deviceTags: DeviceTags) =
+        deviceRepository.createDeviceTags(deviceId = deviceTags.deviceId, tagId = deviceTags.tagId)
+
     override fun deleteDeviceTags(deviceTags: DeviceTags) =
         deviceRepository.deleteDeviceTags(deviceTags = deviceTags)
 

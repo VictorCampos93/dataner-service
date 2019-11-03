@@ -45,6 +45,12 @@ class DeviceController(
         ctx.json(it)
     }
 
+    fun createDeviceTags(ctx: Context) = ctx.body<DeviceTags>().let {
+        deviceService.createDeviceTags(deviceTags = it.toDeviceTags())
+    }.also {
+        ctx.status(HttpStatus.CREATED_201)
+    }
+
     fun deleteDeviceTags(ctx: Context) = ctx.body<DeviceTags>().let {
         deviceService.deleteDeviceTags(deviceTags = it.toDeviceTags())
     }.also {

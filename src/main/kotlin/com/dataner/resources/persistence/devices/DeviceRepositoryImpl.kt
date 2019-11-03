@@ -78,21 +78,21 @@ class DeviceRepositoryImpl : DeviceRepository {
         }
     }
 
+    override fun createDeviceTags(deviceId: String, tagId: Int) {
+        transaction {
+            DeviceTagsTable.insert {
+                it[DeviceTagsTable.tagId] = tagId
+                it[DeviceTagsTable.deviceId] = deviceId
+            }
+        }
+    }
+
     override fun deleteDeviceTags(deviceTags: DeviceTags) {
         transaction {
             DeviceTagsTable.deleteWhere {
                 DeviceTagsTable.deviceId.eq(deviceTags.deviceId).and(
                     DeviceTagsTable.tagId.eq(deviceTags.tagId)
                 )
-            }
-        }
-    }
-
-    override fun createDeviceTags(deviceId: String, tagId: Int) {
-        transaction {
-            DeviceTagsTable.insert {
-                it[DeviceTagsTable.tagId] = tagId
-                it[DeviceTagsTable.deviceId] = deviceId
             }
         }
     }
