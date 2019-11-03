@@ -211,10 +211,35 @@ class DeviceRepositoryImpl : DeviceRepository {
         }
     }
 
-    override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> = transaction {
+    override fun allFloorDevices(floorId: Int): List<AllFloorDevices> = transaction {
         (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable)
             .select {
-                DeviceTable.workplaceId.eq(buildingId)
+                FloorTable.floorId.eq(floorId)
+            }.map { allFloorDevices ->
+                AllFloorDevices(
+                    deviceId = allFloorDevices[DeviceTable.deviceId],
+                    deviceDescription = allFloorDevices[DeviceTable.deviceDescription],
+                    deviceState = allFloorDevices[DeviceTable.deviceState],
+                    deviceType = allFloorDevices[DeviceTable.deviceType],
+                    workplaceId = allFloorDevices[DeviceTable.workplaceId],
+                    floorId = allFloorDevices[FloorTable.floorId],
+                    tags = (TagTable innerJoin DeviceTagsTable).select {
+                        DeviceTagsTable.deviceId.eq(allFloorDevices[DeviceTable.deviceId])
+                    }.map { tags ->
+                        Tag(
+                            tagId = tags[TagTable.tagId],
+                            tagDescription = tags[TagTable.tagDescription],
+                            buildingId = tags[TagTable.buildingId]
+                        )
+                    }
+                )
+            }
+    }
+
+    override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> = transaction {
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
+            .select {
+                BuildingTable.buildingId.eq(buildingId)
             }.map { allWorkplaceDevices ->
                 AllBuildingDevices(
                     deviceId = allWorkplaceDevices[DeviceTable.deviceId],

@@ -49,6 +49,9 @@ class DeviceServiceImpl(
     override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> =
         deviceRepository.allWorkplaceDevices(workplaceId = workplaceId)
 
+    override fun allFloorDevices(floorId: Int): List<AllFloorDevices> =
+        deviceRepository.allFloorDevices(floorId = floorId)
+
     override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> =
         deviceRepository.allBuildingDevices(buildingId = buildingId)
 

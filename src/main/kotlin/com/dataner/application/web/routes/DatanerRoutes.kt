@@ -25,6 +25,7 @@ class DatanerRoutes(
 
                 path("all") {
                     get("workplace/:workplace") { deviceController.allWorkplaceDevices(it) }
+                    get("floor/:floor") { deviceController.allFloorDevices(it) }
                     get("building/:building") { deviceController.allBuildingDevices(it) }
                 }
 

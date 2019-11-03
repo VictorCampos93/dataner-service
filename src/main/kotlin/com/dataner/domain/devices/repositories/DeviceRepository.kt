@@ -28,5 +28,7 @@ interface DeviceRepository {
 
     fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices>
 
+    fun allFloorDevices(floorId: Int): List<AllFloorDevices>
+
     fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices>
 }
