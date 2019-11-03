@@ -9,10 +9,7 @@ import com.dataner.resources.persistence.database.tables.DeviceTagsTable
 import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.TagTable
 import com.dataner.resources.persistence.database.tables.WorkplaceTable
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 
@@ -63,6 +60,20 @@ class DeviceRepositoryImpl : DeviceRepository {
         transaction {
             DeviceTable.deleteWhere {
                 DeviceTable.deviceId eq deviceId
+            }
+        }
+    }
+
+    override fun updateDevice(device: DeviceUpdate) {
+        transaction {
+            DeviceTable.update({
+                DeviceTable.deviceId eq device.deviceId
+            }) {
+                it[deviceId] = device.deviceIdUpdate
+                it[deviceDescription] = device.deviceDescription
+                it[deviceState] = device.deviceState
+                it[deviceType] = device.deviceType
+                it[workplaceId] = device.workplaceId
             }
         }
     }

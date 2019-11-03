@@ -10,6 +10,8 @@ interface DeviceRepository {
 
     fun deleteDevice(deviceId: String)
 
+    fun updateDevice(device: DeviceUpdate)
+
     fun deleteDeviceTags(deviceId: String)
 
     fun createDeviceTags(deviceId: String, tagId: Int)

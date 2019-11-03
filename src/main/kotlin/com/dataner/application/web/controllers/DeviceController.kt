@@ -1,6 +1,7 @@
 package com.dataner.application.web.controllers
 
 import com.dataner.application.web.entities.Device
+import com.dataner.application.web.entities.DeviceUpdate
 import com.dataner.commom.ext.Validate
 import com.dataner.domain.devices.services.contracts.DeviceService
 import io.javalin.Context
@@ -26,6 +27,12 @@ class DeviceController(
 
     fun deleteDevice(ctx: Context) = ctx.pathParam("device").let {
         deviceService.delete(deviceId = it)
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+    }
+
+    fun updateDevice(ctx: Context) = ctx.body<DeviceUpdate>().let {
+        deviceService.update(device = it.toDevice())
     }.also {
         ctx.status(HttpStatus.OK_200)
     }

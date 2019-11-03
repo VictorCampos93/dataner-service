@@ -6,6 +6,7 @@ import io.javalin.apibuilder.ApiBuilder.path
 import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.apibuilder.ApiBuilder.delete
+import io.javalin.apibuilder.ApiBuilder.put
 
 class DatanerRoutes(
     private val deviceController: DeviceController,
@@ -18,8 +19,9 @@ class DatanerRoutes(
 
             path("device") {
                 get(":device") { deviceController.device(it) }
-                post { deviceController.createDevice(it) }
                 delete(":device") { deviceController.deleteDevice(it) }
+                post { deviceController.createDevice(it) }
+                put { deviceController.updateDevice(it) }
 
                 path("all") {
                     get("workplace/:workplace") { deviceController.allWorkplaceDevices(it) }

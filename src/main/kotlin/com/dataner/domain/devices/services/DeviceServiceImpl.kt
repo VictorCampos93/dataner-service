@@ -1,9 +1,6 @@
 package com.dataner.domain.devices.services
 
-import com.dataner.domain.devices.entities.AllBuildingDevices
-import com.dataner.domain.devices.entities.AllDeviceState
-import com.dataner.domain.devices.entities.AllWorkplaceDevices
-import com.dataner.domain.devices.entities.Device
+import com.dataner.domain.devices.entities.*
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.contracts.DeviceService
 
@@ -23,10 +20,10 @@ class DeviceServiceImpl(
         deviceRepository.device(deviceId = deviceId)
 
     override fun delete(deviceId: String) =
-        deviceRepository.deleteDeviceTags(deviceId = deviceId)
-            .also {
-                deviceRepository.deleteDevice(deviceId = deviceId)
-            }
+        deviceRepository.deleteDevice(deviceId = deviceId)
+
+    override fun update(device: DeviceUpdate) =
+        deviceRepository.updateDevice(device = device)
 
     override fun allDeviceTags(deviceId: String) =
         deviceRepository.allDeviceTags(deviceId = deviceId)
@@ -47,6 +44,6 @@ class DeviceServiceImpl(
         deviceRepository.allWorkplaceDevices(workplaceId = workplaceId)
 
     override fun allBuildingDevices(buildingId: Int): List<AllBuildingDevices> =
-            deviceRepository.allBuildingDevices(buildingId = buildingId)
+        deviceRepository.allBuildingDevices(buildingId = buildingId)
 
 }

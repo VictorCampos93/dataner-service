@@ -10,6 +10,8 @@ interface DeviceService {
 
     fun delete(deviceId: String)
 
+    fun update(device: DeviceUpdate)
+
     fun allDeviceTags(deviceId: String): List<DeviceTags>
 
     fun deviceState(deviceId: String): Boolean
