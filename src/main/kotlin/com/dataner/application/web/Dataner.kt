@@ -37,7 +37,7 @@ object Dataner : KoinComponent {
                 exception(Exception::class.java) { e, ctx ->
                     ErrorHandler.otherError(ctx, e)
                 }
-                 
+
             }.start(7000)
     }
 

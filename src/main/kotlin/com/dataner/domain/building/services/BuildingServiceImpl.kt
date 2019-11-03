@@ -25,6 +25,9 @@ class BuildingServiceImpl(
         buildingRepository.getCompanyBuildings(companyId)
 
     override fun deleteBuilding(buildingId: Int) {
+        if(buildingRepository.checkBuilding(buildingId))
+            throw Exception()
+
         buildingRepository.deleteBuilding(buildingId)
     }
 }
