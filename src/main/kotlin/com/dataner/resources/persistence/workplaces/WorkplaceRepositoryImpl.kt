@@ -4,11 +4,8 @@ import com.dataner.domain.workplaces.entities.Workplace
 import com.dataner.domain.workplaces.repositories.WorkplaceRepository
 import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.WorkplaceTable
-import org.jetbrains.exposed.sql.SqlExpressionBuilder
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
 import org.slf4j.LoggerFactory
 
 class WorkplaceRepositoryImpl : WorkplaceRepository {
@@ -43,7 +40,7 @@ class WorkplaceRepositoryImpl : WorkplaceRepository {
         }
     }
 
-    override fun selectWorkplace(workplaceId: Int) : Boolean = transaction {
+    override fun checkWorkplace(workplaceId: Int) : Boolean = transaction {
             WorkplaceTable.select{
                 WorkplaceTable.workplaceId eq workplaceId
             }.count() == 0
@@ -60,6 +57,14 @@ class WorkplaceRepositoryImpl : WorkplaceRepository {
                 workplaceId = allFloorWorkplaces[WorkplaceTable.workplaceId]
 
             )
+        }
+    }
+
+    override fun deleteWorkplace(workplaceId: Int) {
+        transaction {
+            WorkplaceTable.deleteWhere {
+                WorkplaceTable.workplaceId eq workplaceId
+            }
         }
     }
 

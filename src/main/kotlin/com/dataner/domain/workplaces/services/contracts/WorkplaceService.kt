@@ -9,4 +9,6 @@ interface WorkplaceService {
     fun updateWorkplace(workplace: Workplace)
 
     fun allFloorWorkplaces(floorId: Int): List<Workplace>
+
+    fun deleteWorkplace(workplaceId: Int)
 }

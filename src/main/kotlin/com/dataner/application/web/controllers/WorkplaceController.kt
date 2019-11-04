@@ -15,7 +15,7 @@ class WorkplaceController(
         ctx.json("Ambiente cadastrado com sucesso")
     }
 
-    fun updateWorkplace (ctx: Context) = ctx.body<Workplace>().let {
+    fun updateWorkplace(ctx: Context) = ctx.body<Workplace>().let {
         workplaceService.updateWorkplace(it.toWorkplace())
     }.also {
         ctx.status(HttpStatus.OK_200)
@@ -31,5 +31,12 @@ class WorkplaceController(
             ctx.status(HttpStatus.OK_200)
             ctx.json(it)
         }
+    }
+
+    fun deleteWorkplace(ctx: Context) = ctx.pathParam("workplace").let {
+        workplaceService.deleteWorkplace(it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json("Ambiente apagado com sucesso")
     }
 }

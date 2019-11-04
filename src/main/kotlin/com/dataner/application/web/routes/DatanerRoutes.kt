@@ -46,6 +46,7 @@ class DatanerRoutes(
                 post { workplaceController.createWorkplace(it) }
                 get("all/:floor") { workplaceController.allFloorWorkplaces(it) }
                 put{ workplaceController.updateWorkplace(it)}
+                delete("/:workplace") { workplaceController.deleteWorkplace(it)}
             }
 
         }

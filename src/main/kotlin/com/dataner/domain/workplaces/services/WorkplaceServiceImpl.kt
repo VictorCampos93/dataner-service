@@ -9,11 +9,11 @@ class WorkplaceServiceImpl(
     private val workplaceRepository: WorkplaceRepository
 ) : WorkplaceService {
     override fun createWorkplace(workplace: Workplace) {
-       workplaceRepository.createWorkplace(workplace)
+        workplaceRepository.createWorkplace(workplace)
     }
 
     override fun updateWorkplace(workplace: Workplace) {
-        if (workplaceRepository.selectWorkplace(workplace.workplaceId!!))
+        if (workplaceRepository.checkWorkplace(workplace.workplaceId!!))
             throw NotAWorkplace()
 
         workplaceRepository.updateWorkplace(workplace)
@@ -23,4 +23,10 @@ class WorkplaceServiceImpl(
     override fun allFloorWorkplaces(floorId: Int): List<Workplace> =
         workplaceRepository.allFloorWorkplaces(floorId = floorId)
 
+    override fun deleteWorkplace(workplaceId: Int) {
+        if (workplaceRepository.checkWorkplace(workplaceId))
+            throw NotAWorkplace()
+
+        workplaceRepository.deleteWorkplace(workplaceId)
+    }
 }
