@@ -4,7 +4,7 @@ import org.jetbrains.exposed.sql.Table
 
 object BuildingTable : Table(name = "BUILDING") {
     val buildingId = integer(name = "BUILDING_ID").primaryKey().autoIncrement()
-    val buildingCep = varchar(name = "CEP", length = 9)
+    val buildingZipCode = varchar(name = "CEP", length = 9)
     val buildingCity = varchar(name = "CITY", length = 255)
     val buildingCountry = varchar(name = "COUNTRY", length = 255)
     val buildingNumber = integer(name = "NUMBER")

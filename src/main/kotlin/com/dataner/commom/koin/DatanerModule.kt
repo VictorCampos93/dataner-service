@@ -17,16 +17,20 @@ import com.dataner.domain.floor.services.contracts.FloorService
 import com.dataner.domain.tags.repositories.TagRepository
 import com.dataner.domain.tags.services.TagServiceImpl
 import com.dataner.domain.tags.services.contracts.TagService
+import com.dataner.domain.workplaces.repositories.WorkplaceRepository
+import com.dataner.domain.workplaces.services.WorkplaceServiceImpl
+import com.dataner.domain.workplaces.services.contracts.WorkplaceService
 import com.dataner.resources.persistence.buildings.BuildingRepositoryImpl
 import com.dataner.resources.persistence.companies.CompanyRepositoryImpl
 import com.dataner.resources.persistence.devices.DeviceRepositoryImpl
 import com.dataner.resources.persistence.floors.FloorRepositoryImpl
 import com.dataner.resources.persistence.tags.TagRepositoryImpl
+import com.dataner.resources.persistence.workplaces.WorkplaceRepositoryImpl
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
 
 val datanerModule: Module = module {
-    single { DatanerRoutes(get(), get(), get(), get(), get()) }
+    single { DatanerRoutes(get(), get(), get(), get(), get(), get()) }
 }
 
 val deviceModule: Module = module {
@@ -50,6 +54,12 @@ val buildingModule: Module = module {
     single { BuildingRepositoryImpl() as BuildingRepository }
 }
 
+val workplaceModule: Module = module {
+
+    single { WorkplaceController(get()) }
+    single { WorkplaceServiceImpl (get()) as WorkplaceService}
+    single { WorkplaceRepositoryImpl () as WorkplaceRepository }
+}
 
 val tagModule: Module = module {
 
