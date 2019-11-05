@@ -1,20 +1,17 @@
 package com.dataner.application.web
 
 import com.dataner.application.database.DatabaseManager
+import com.dataner.application.exceptions.DatanerException
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
-import com.dataner.commom.koin.buildingModule
-import com.dataner.commom.koin.companyModule
-import com.dataner.commom.koin.datanerModule
-import com.dataner.commom.koin.deviceModule
-import com.dataner.commom.koin.tagModule
+import com.dataner.commom.koin.*
 import io.javalin.Javalin
 import org.h2.engine.Database
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.StandAloneContext
 import org.koin.standalone.inject
 
-object Dataner: KoinComponent {
+object Dataner : KoinComponent {
 
     private val datanerRoutes: DatanerRoutes by inject()
 
@@ -38,7 +35,10 @@ object Dataner: KoinComponent {
                 }
 
                 exception(Exception::class.java) { e, ctx ->
-                    ErrorHandler.otherError(ctx, e)
+                    when (e) {
+                       is DatanerException -> ErrorHandler.datanerError(ctx, e)
+                        else -> ErrorHandler.otherError(ctx, e)
+                    }
                 }
 
             }.start(7000)
@@ -51,7 +51,9 @@ object Dataner: KoinComponent {
                 deviceModule,
                 companyModule,
                 buildingModule,
-                tagModule
+                tagModule,
+                workplaceModule,
+                floorModule
             )
         )
     }
