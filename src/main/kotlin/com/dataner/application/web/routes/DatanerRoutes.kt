@@ -62,6 +62,9 @@ class DatanerRoutes(
             }
 
             path("building") {
+                get("all/:company") { buildingController.getCompanyBuildings(it) }
+                put{ buildingController.updateBuilding(it)}
+                delete("/:building") { buildingController.deleteBuilding(it)}
                 post { buildingController.createBuilding(it) }
 
             }

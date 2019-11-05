@@ -74,7 +74,7 @@ object DatabaseManager {
 
     fun createBuilding() = transaction {
         BuildingTable.insert {
-            it[buildingCep] = "12345-678"
+            it[buildingZipCode] = "12345-678"
             it[buildingCity] = "Test"
             it[buildingCountry] = "Test"
             it[buildingNumber] = 1234
@@ -85,7 +85,7 @@ object DatabaseManager {
         }
 
         BuildingTable.insert {
-            it[buildingCep] = "12345-678"
+            it[buildingZipCode] = "12345-678"
             it[buildingCity] = "Test"
             it[buildingCountry] = "Test"
             it[buildingNumber] = 1234
