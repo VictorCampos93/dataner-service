@@ -1,13 +1,10 @@
 package com.dataner.application.web
 
 import com.dataner.application.database.DatabaseManager
+import com.dataner.application.exceptions.DatanerException
 import com.dataner.application.exceptions.ErrorHandler
 import com.dataner.application.web.routes.DatanerRoutes
-import com.dataner.commom.koin.buildingModule
-import com.dataner.commom.koin.companyModule
-import com.dataner.commom.koin.datanerModule
-import com.dataner.commom.koin.deviceModule
-import com.dataner.commom.koin.tagModule
+import com.dataner.commom.koin.*
 import io.javalin.Javalin
 import org.h2.engine.Database
 import org.koin.standalone.KoinComponent
@@ -27,6 +24,9 @@ object Dataner : KoinComponent {
 //        DatabaseManager.createCompany()
 //        DatabaseManager.createBuilding()
 //        DatabaseManager.createTags()
+//        DatabaseManager.createFloor()
+//        DatabaseManager.createWorkplace()
+//        DatabaseManager.createDevice()
 
         return Javalin.create()
             .apply {
@@ -35,7 +35,10 @@ object Dataner : KoinComponent {
                 }
 
                 exception(Exception::class.java) { e, ctx ->
-                    ErrorHandler.otherError(ctx, e)
+                    when (e) {
+                       is DatanerException -> ErrorHandler.datanerError(ctx, e)
+                        else -> ErrorHandler.otherError(ctx, e)
+                    }
                 }
 
             }.start(7000)
@@ -48,7 +51,9 @@ object Dataner : KoinComponent {
                 deviceModule,
                 companyModule,
                 buildingModule,
-                tagModule
+                tagModule,
+                workplaceModule,
+                floorModule
             )
         )
     }
