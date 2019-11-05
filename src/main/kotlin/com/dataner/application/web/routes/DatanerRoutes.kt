@@ -4,10 +4,7 @@ import com.dataner.application.web.controllers.BuildingController
 import com.dataner.application.web.controllers.CompanyController
 import com.dataner.application.web.controllers.DeviceController
 import com.dataner.application.web.controllers.TagController
-import io.javalin.apibuilder.ApiBuilder.path
-import io.javalin.apibuilder.ApiBuilder.post
-import io.javalin.apibuilder.ApiBuilder.get
-import io.javalin.apibuilder.ApiBuilder.delete
+import io.javalin.apibuilder.ApiBuilder.*
 
 class DatanerRoutes(
     private val deviceController: DeviceController,
@@ -31,10 +28,13 @@ class DatanerRoutes(
             }
             path("company"){
                 post { companyController.createCompany(it) }
+                put { companyController.updateCompany(it) }
+                delete("/:company"){ companyController.deleteCompany(it) }
             }
 
             path("building") {
                 post { buildingController.createBuilding(it)}
+
             }
 
         }
