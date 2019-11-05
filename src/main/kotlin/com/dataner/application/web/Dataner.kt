@@ -30,9 +30,9 @@ object Dataner: KoinComponent {
                     datanerRoutes.register()
                 }
 
-//                exception(Exception::class.java) { e, ctx ->
-//                    ErrorHandler.otherError(ctx, e)
-//                }
+                exception(Exception::class.java) { e, ctx ->
+                    ErrorHandler.otherError(ctx, e)
+                }
 
             }.start(7000)
     }

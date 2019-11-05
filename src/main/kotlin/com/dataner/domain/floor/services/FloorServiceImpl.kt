@@ -8,7 +8,6 @@ class FloorServiceImpl(
     private val floorRepository: FloorRepository
 ) : FloorService {
     override fun createFloor(floor: Floor) {
-
         if (!floorRepository.checkFloorNumber(floor))
             throw Exception()
 
@@ -23,6 +22,9 @@ class FloorServiceImpl(
         floorRepository.allBuildingFloors(buildingId = buildingId)
 
     override fun deleteFloor(floorId: Int) {
+        if (floorRepository.checkFloor(floorId))
+            throw Exception()
+
         floorRepository.deleteFloor(floorId = floorId)
     }
 }

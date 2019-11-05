@@ -44,6 +44,12 @@ class FloorRepositoryImpl : FloorRepository {
         }.count() == 0
     }
 
+    override fun checkFloor(floorId: Int): Boolean = transaction {
+        FloorTable.select {
+            FloorTable.floorId.eq(floorId)
+
+        }.count() == 0
+    }
 
     override fun deleteFloor(floorId: Int) {
         transaction {

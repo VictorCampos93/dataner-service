@@ -12,4 +12,6 @@ interface FloorRepository {
     fun allBuildingFloors(buildingId: Int): List<Floor>
 
     fun checkFloorNumber(floor: Floor): Boolean
+
+    fun checkFloor(floorId: Int): Boolean
 }
