@@ -13,5 +13,7 @@ interface FloorRepository {
 
     fun checkFloorNumber(floor: Floor): Boolean
 
+    fun checkBuildingFloor(floor: Floor): Boolean
+
     fun checkFloor(floorId: Int): Boolean
 }

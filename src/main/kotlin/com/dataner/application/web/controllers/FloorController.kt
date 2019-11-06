@@ -1,6 +1,8 @@
 package com.dataner.application.web.controllers
 
+import com.dataner.application.web.entities.Device
 import com.dataner.application.web.entities.Floor
+import com.dataner.commom.ext.Validate
 import com.dataner.domain.floor.services.contracts.FloorService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
@@ -16,6 +18,7 @@ class FloorController(
     }
 
     fun updateFloor(ctx: Context) = ctx.body<Floor>().let {
+        Validate.validate(Floor::class, it)
         floorService.updateFloor(it.toFloor())
     }.also {
         ctx.status(HttpStatus.OK_200)
