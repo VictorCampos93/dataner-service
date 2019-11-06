@@ -6,7 +6,9 @@ data class Building (
     val city :String,
     val addressType :String,
     val address :String,
-    val addressNumber :String,
-    val zipCode :String
+    val addressNumber :Int,
+    val zipCode :String,
+    val companyId :Int,
+    val buildingId :Int?
 
 )
