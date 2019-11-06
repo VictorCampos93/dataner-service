@@ -12,12 +12,6 @@ interface DeviceService {
 
     fun update(device: DeviceUpdate)
 
-    fun allDeviceTags(deviceId: String): List<DeviceTags>
-
-    fun createDeviceTags(deviceTags: DeviceTags)
-
-    fun deleteDeviceTags(deviceTags: DeviceTags)
-
     fun deviceState(deviceId: String): Boolean
 
     fun allBuildingDeviceState(buildingId: Int): AllDeviceState

@@ -10,7 +10,9 @@ import com.dataner.domain.company.services.CompanyServiceImpl
 import com.dataner.domain.company.services.contracts.CompanyService
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.DeviceServiceImpl
+import com.dataner.domain.devices.services.DeviceTagsServiceImpl
 import com.dataner.domain.devices.services.contracts.DeviceService
+import com.dataner.domain.devices.services.contracts.DeviceTagsService
 import com.dataner.domain.floor.repositories.FloorRepository
 import com.dataner.domain.floor.services.FloorServiceImpl
 import com.dataner.domain.floor.services.contracts.FloorService
@@ -35,8 +37,9 @@ val datanerModule: Module = module {
 
 val deviceModule: Module = module {
 
-    single { DeviceController(get()) }
+    single { DeviceController(get(), get()) }
     single { DeviceServiceImpl(get()) as DeviceService }
+    single { DeviceTagsServiceImpl(get()) as DeviceTagsService }
     single { DeviceRepositoryImpl() as DeviceRepository }
 }
 

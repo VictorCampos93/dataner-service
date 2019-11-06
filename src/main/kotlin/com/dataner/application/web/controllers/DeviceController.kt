@@ -5,11 +5,13 @@ import com.dataner.application.web.entities.DeviceTags
 import com.dataner.application.web.entities.DeviceUpdate
 import com.dataner.commom.ext.Validate
 import com.dataner.domain.devices.services.contracts.DeviceService
+import com.dataner.domain.devices.services.contracts.DeviceTagsService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
 
 class DeviceController(
-    private val deviceService: DeviceService
+    private val deviceService: DeviceService,
+    private val deviceTagsService: DeviceTagsService
 ) {
 
     fun createDevice(ctx: Context) = ctx.body<Device>().let {
@@ -39,20 +41,20 @@ class DeviceController(
     }
 
     fun deviceTags(ctx: Context) = ctx.pathParam("device").let {
-        deviceService.allDeviceTags(deviceId = it)
+        deviceTagsService.allDeviceTags(deviceId = it)
     }.also {
         ctx.status(HttpStatus.OK_200)
         ctx.json(it)
     }
 
     fun createDeviceTags(ctx: Context) = ctx.body<DeviceTags>().let {
-        deviceService.createDeviceTags(deviceTags = it.toDeviceTags())
+        deviceTagsService.createDeviceTags(deviceTags = it.toDeviceTags())
     }.also {
         ctx.status(HttpStatus.CREATED_201)
     }
 
     fun deleteDeviceTags(ctx: Context) = ctx.body<DeviceTags>().let {
-        deviceService.deleteDeviceTags(deviceTags = it.toDeviceTags())
+        deviceTagsService.deleteDeviceTags(deviceTags = it.toDeviceTags())
     }.also {
         ctx.status(HttpStatus.OK_200)
     }
