@@ -59,6 +59,8 @@ class DatanerRoutes(
             }
             path("company") {
                 post { companyController.createCompany(it) }
+                put { companyController.updateCompany(it) }
+                delete("/:company"){ companyController.deleteCompany(it) }
             }
 
             path("building") {

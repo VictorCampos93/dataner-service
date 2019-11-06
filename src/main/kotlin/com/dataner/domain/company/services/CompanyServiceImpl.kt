@@ -19,4 +19,23 @@ class CompanyServiceImpl (
         companyRepository.createCompany(company)
     }
 
+    override fun updateCompany(company: Company) {
+        if (companyRepository.checkCompany(company.companyId!!))
+
+        if(company.companyName.isBlank()) throw Exception()
+
+        if(company.legalEntity.isBlank()) throw Exception()
+
+        DataValidation.cnpjValid(company.documentNumber)
+
+        companyRepository.updateCompany(company)
+    }
+
+    override fun deleteCompany(companyId: Int) {
+        if(companyRepository.checkCompany(companyId))
+            throw Exception()
+
+        companyRepository.deleteCompany(companyId)
+    }
+
 }

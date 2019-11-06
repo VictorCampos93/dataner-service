@@ -14,4 +14,12 @@ class CompanyController(
         ctx.status(HttpStatus.OK_200)
         ctx.json("Empresa cadastrada com sucesso")
     }
+
+    fun updateCompany(ctx: Context) = ctx.body<Company>().let {
+        companyService.updateCompany(it.toCompany())
+    }
+
+    fun deleteCompany(ctx: Context) = ctx.pathParam("company").let {
+        companyService.deleteCompany(it.toInt())
+    }
 }
