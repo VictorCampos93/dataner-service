@@ -8,6 +8,8 @@ interface BuildingRepository {
 
     fun checkBuilding(buildId: Int): Boolean
 
+    fun checkBuildingAndCompany(building: Building): Boolean
+
     fun updateBuilding(building: Building)
 
     fun getCompanyBuildings(companyId: Int): List<Building>

@@ -6,7 +6,7 @@ import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
 
 class WorkplaceController(
-    val workplaceService: WorkplaceService
+    private val workplaceService: WorkplaceService
 ) {
     fun createWorkplace(ctx: Context) = ctx.body<Workplace>().let {
         workplaceService.createWorkplace(it.toWorkplace())

@@ -46,7 +46,6 @@ class WorkplaceRepositoryImpl : WorkplaceRepository {
             }.count() == 0
         }
 
-
     override fun allFloorWorkplaces(floorId: Int): List<Workplace> = transaction {
         WorkplaceTable.select {
             WorkplaceTable.floorId eq floorId

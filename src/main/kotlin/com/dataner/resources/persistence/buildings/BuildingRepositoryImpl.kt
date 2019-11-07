@@ -3,11 +3,9 @@ package com.dataner.resources.persistence.buildings
 import com.dataner.domain.building.entities.Building
 import com.dataner.domain.building.repositores.BuildingRepository
 import com.dataner.resources.persistence.database.tables.BuildingTable
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
+import kotlin.and
 
 class BuildingRepositoryImpl: BuildingRepository {
     override fun createBuilding(building: Building) {
@@ -44,9 +42,15 @@ class BuildingRepositoryImpl: BuildingRepository {
         }
     }
 
-    override fun checkBuilding(buildId: Int): Boolean = transaction {
+    override fun checkBuilding(buildingId: Int): Boolean = transaction {
         BuildingTable.select {
-            BuildingTable.buildingId eq buildId
+            (BuildingTable.buildingId eq buildingId)
+        }.count() == 0
+    }
+
+    override fun checkBuildingAndCompany(building: Building): Boolean = transaction {
+        BuildingTable.select {
+            (BuildingTable.buildingId eq building.buildingId!!).and(BuildingTable.companyId eq building.companyId)
         }.count() == 0
     }
 

@@ -1,6 +1,8 @@
 package com.dataner.application.web.controllers
 
 import com.dataner.application.web.entities.Building
+import com.dataner.application.web.entities.Device
+import com.dataner.commom.ext.Validate
 import com.dataner.domain.building.services.contracts.BuildingService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus
@@ -18,6 +20,7 @@ class BuildingController(
     }
 
     fun updateBuilding(ctx: Context) = ctx.body<Building>().let {
+        Validate.validate(Building::class, it)
         buildingService.updateBuilding(it.toBuilding())
     }.also {
         ctx.status(HttpStatus.OK_200)
