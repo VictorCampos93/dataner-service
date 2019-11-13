@@ -47,7 +47,11 @@ object Dataner : KoinComponent {
                     }
                 }
 
-            }.start(7000)
+                enableCorsForAllOrigins()
+
+            }.start(7000).after {ctx ->
+                ctx.header("Access-Control-Allow-Credentials", "true")
+            }
     }
 
     private fun setupDependencyInjection() {
