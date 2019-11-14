@@ -1,8 +1,10 @@
 package com.dataner.resources.persistence.floors
 
 import com.dataner.domain.floor.entities.Floor
+import com.dataner.domain.floor.entities.FloorWorkplaces
 import com.dataner.domain.floor.repositories.FloorRepository
 import com.dataner.resources.persistence.database.tables.FloorTable
+import com.dataner.resources.persistence.database.tables.WorkplaceTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
@@ -67,6 +69,22 @@ class FloorRepositoryImpl : FloorRepository {
                 buildingId = allFloors[FloorTable.buildingId],
                 number = allFloors[FloorTable.floorNumber],
                 floorId = allFloors[FloorTable.floorId]
+            )
+        }
+    }
+
+    override fun allBuildingFloorWorkplaces(buildingId: Int): List<FloorWorkplaces> = transaction {
+        (FloorTable innerJoin WorkplaceTable).select {
+            FloorTable.buildingId.eq(buildingId).and(
+                WorkplaceTable.floorId.eq(FloorTable.floorId)
+            )
+        }.map { allFloorWorkplaces ->
+            FloorWorkplaces(
+                buildingId = buildingId,
+                number = allFloorWorkplaces[FloorTable.floorNumber],
+                floorId = allFloorWorkplaces[FloorTable.floorId],
+                description = allFloorWorkplaces[WorkplaceTable.workplaceDescription],
+                workplaceId = allFloorWorkplaces[WorkplaceTable.workplaceId]
             )
         }
     }

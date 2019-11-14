@@ -1,6 +1,7 @@
 package com.dataner.domain.floor.services
 
 import com.dataner.domain.floor.entities.Floor
+import com.dataner.domain.floor.entities.FloorWorkplaces
 import com.dataner.domain.floor.repositories.FloorRepository
 import com.dataner.domain.floor.services.contracts.FloorService
 
@@ -21,6 +22,9 @@ class FloorServiceImpl(
 
     override fun allBuildingFloors(buildingId: Int): List<Floor> =
         floorRepository.allBuildingFloors(buildingId = buildingId)
+
+    override fun allBuildingFloorWorkplaces(buildingId: Int): List<FloorWorkplaces> =
+        floorRepository.allBuildingFloorWorkplaces(buildingId = buildingId)
 
     override fun deleteFloor(floorId: Int) {
         if (floorRepository.checkFloor(floorId))

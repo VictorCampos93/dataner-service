@@ -1,6 +1,7 @@
 package com.dataner.domain.floor.services.contracts
 
 import com.dataner.domain.floor.entities.Floor
+import com.dataner.domain.floor.entities.FloorWorkplaces
 
 interface FloorService {
 
@@ -11,5 +12,7 @@ interface FloorService {
     fun deleteFloor(floorId: Int)
 
     fun allBuildingFloors(buildingId: Int): List<Floor>
+
+    fun allBuildingFloorWorkplaces(buildingId: Int): List<FloorWorkplaces>
 
 }
