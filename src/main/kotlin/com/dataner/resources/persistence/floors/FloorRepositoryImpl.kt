@@ -78,7 +78,7 @@ class FloorRepositoryImpl : FloorRepository {
             FloorTable.buildingId.eq(buildingId).and(
                 WorkplaceTable.floorId.eq(FloorTable.floorId)
             )
-        }.map { allFloorWorkplaces ->
+        }.orderBy(FloorTable.floorNumber).map { allFloorWorkplaces ->
             FloorWorkplaces(
                 buildingId = buildingId,
                 number = allFloorWorkplaces[FloorTable.floorNumber],
