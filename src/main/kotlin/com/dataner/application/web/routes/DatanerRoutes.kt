@@ -74,6 +74,7 @@ class DatanerRoutes(
             path("floor") {
                 post { floorController.createFloor(it) }
                 get(":building") { floorController.allBuildingFloors(it) }
+                get("all/workplaces/:building") { floorController.allBuildingFloorWorkplaces(it) }
                 delete(":floor") { floorController.deleteFloor(it) }
                 put { floorController.updateFloor(it)}
             }

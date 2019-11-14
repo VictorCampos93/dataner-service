@@ -32,6 +32,13 @@ class FloorController(
         }
     }
 
+    fun allBuildingFloorWorkplaces(ctx: Context) = ctx.pathParam("building").let {
+        floorService.allBuildingFloorWorkplaces(it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
     fun deleteFloor(ctx: Context) = ctx.pathParam("floor").let{
         floorService.deleteFloor(it.toInt())
     }.also{
