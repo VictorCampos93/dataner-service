@@ -85,6 +85,13 @@ class DeviceController(
         ctx.json(it)
     }
 
+    fun allBuildingWorkplaceDeviceState(ctx: Context) = ctx.pathParam("building").let {
+        deviceService.allBuildingWorkplaceDeviceState(buildingId = it.toInt())
+    }.also {
+        ctx.status(HttpStatus.OK_200)
+        ctx.json(it)
+    }
+
     fun allBuildingDevices(ctx: Context) = ctx.pathParam("building").let {
         deviceService.allBuildingDevices(buildingId = it.toInt())
     }.also {

@@ -26,6 +26,8 @@ interface DeviceService {
 
     fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState
 
+    fun allBuildingWorkplaceDeviceState(buildingId: Int): List<AllWorkplaceDeviceState>
+
     fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices>
 
     fun allFloorDevices(floorId: Int): List<AllFloorDevices>

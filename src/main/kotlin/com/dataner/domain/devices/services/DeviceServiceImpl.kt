@@ -1,11 +1,13 @@
 package com.dataner.domain.devices.services
 
+import com.dataner.domain.building.repositores.BuildingRepository
 import com.dataner.domain.devices.entities.*
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.contracts.DeviceService
 
 class DeviceServiceImpl(
-    private val deviceRepository: DeviceRepository
+    private val deviceRepository: DeviceRepository,
+    private val buildingRepository: BuildingRepository
 ) : DeviceService {
 
     override fun create(device: Device) {
@@ -45,6 +47,18 @@ class DeviceServiceImpl(
 
     override fun allWorkplaceDeviceState(workplaceId: Int): AllDeviceState =
         deviceRepository.allWorkplaceDeviceState(workplaceId = workplaceId)
+
+    override fun allBuildingWorkplaceDeviceState(buildingId: Int): List<AllWorkplaceDeviceState> =
+        buildingRepository.allBuildingWorkplaces(buildingId = buildingId).map { workplaceId ->
+            deviceRepository.allWorkplaceDeviceState(workplaceId = workplaceId).let {allDeviceState ->
+                AllWorkplaceDeviceState(
+                    devicesOn = allDeviceState.devicesOn,
+                    devicesOff = allDeviceState.devicesOff,
+                    allDevices = allDeviceState.allDevices,
+                    workplaceId = workplaceId
+                )
+            }
+        }
 
     override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> =
         deviceRepository.allWorkplaceDevices(workplaceId = workplaceId)

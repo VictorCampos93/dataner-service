@@ -3,6 +3,9 @@ package com.dataner.resources.persistence.buildings
 import com.dataner.domain.building.entities.Building
 import com.dataner.domain.building.repositores.BuildingRepository
 import com.dataner.resources.persistence.database.tables.BuildingTable
+import com.dataner.resources.persistence.database.tables.FloorTable
+import com.dataner.resources.persistence.database.tables.WorkplaceTable
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -75,5 +78,19 @@ class BuildingRepositoryImpl: BuildingRepository {
                 BuildingTable.buildingId eq buildingId
             }
         }
+    }
+
+    override fun allBuildingWorkplaces(buildingId: Int): List<Int> = transaction {
+        val workplaceId: MutableList<Int> = mutableListOf()
+
+        (BuildingTable innerJoin FloorTable innerJoin WorkplaceTable).select {
+            FloorTable.buildingId.eq(buildingId).and(
+                WorkplaceTable.workplaceId.eq(FloorTable.floorId)
+            )
+        }.map { allBuildingWorkplaces ->
+            workplaceId.add(allBuildingWorkplaces[WorkplaceTable.workplaceId])
+        }
+
+        workplaceId
     }
 }
