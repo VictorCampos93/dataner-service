@@ -36,7 +36,7 @@ val datanerModule: Module = module {
 val deviceModule: Module = module {
 
     single { DeviceController(get()) }
-    single { DeviceServiceImpl(get()) as DeviceService }
+    single { DeviceServiceImpl(get(), get()) as DeviceService }
     single { DeviceRepositoryImpl() as DeviceRepository }
 }
 

@@ -13,4 +13,6 @@ interface BuildingRepository {
     fun getCompanyBuildings(companyId: Int): List<Building>
 
     fun deleteBuilding(buildingId: Int)
+
+    fun allBuildingWorkplaces(buildingId: Int): List<Int>
 }
