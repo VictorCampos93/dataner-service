@@ -17,8 +17,8 @@ buildscript {
 
 apply plugin:'kotlin'
 
-group 'carbon-tower-backend'
-version '1.2'
+group 'dataner-service-backend'
+version '1.0'
 
 repositories {
     jcenter()
@@ -71,7 +71,7 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes('Main-Class': 'com.carbontower.application.web.MainKt')
+        attributes('Main-Class': 'com.dataner.application.DatanerServiceApplicationKt')
     }
     // Add this
     from {

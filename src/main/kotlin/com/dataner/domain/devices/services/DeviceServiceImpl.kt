@@ -1,7 +1,15 @@
 package com.dataner.domain.devices.services
 
 import com.dataner.domain.building.repositores.BuildingRepository
-import com.dataner.domain.devices.entities.*
+import com.dataner.domain.devices.entities.AllBuildingDevices
+import com.dataner.domain.devices.entities.AllDeviceState
+import com.dataner.domain.devices.entities.AllFloorDevices
+import com.dataner.domain.devices.entities.AllWorkplaceDeviceState
+import com.dataner.domain.devices.entities.AllWorkplaceDevices
+import com.dataner.domain.devices.entities.Device
+import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.DeviceUpdate
+import com.dataner.domain.devices.entities.UpdateDeviceState
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.devices.services.contracts.DeviceService
 
@@ -26,6 +34,9 @@ class DeviceServiceImpl(
 
     override fun update(device: DeviceUpdate) =
         deviceRepository.updateDevice(device = device)
+
+    override fun updateDeviceState(device: UpdateDeviceState) =
+        deviceRepository.updateDeviceState(device = device)
 
     override fun allDeviceTags(deviceId: String) =
         deviceRepository.allDeviceTags(deviceId = deviceId)
