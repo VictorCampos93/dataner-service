@@ -1,6 +1,13 @@
 package com.dataner.resources.persistence.devices
 
-import com.dataner.domain.devices.entities.*
+import com.dataner.domain.devices.entities.AllBuildingDevices
+import com.dataner.domain.devices.entities.AllDeviceState
+import com.dataner.domain.devices.entities.AllFloorDevices
+import com.dataner.domain.devices.entities.AllWorkplaceDevices
+import com.dataner.domain.devices.entities.Device
+import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.DeviceUpdate
+import com.dataner.domain.devices.entities.UpdateDeviceState
 import com.dataner.domain.devices.repositories.DeviceRepository
 import com.dataner.domain.tags.entities.Tag
 import com.dataner.resources.persistence.database.tables.BuildingTable
@@ -9,8 +16,12 @@ import com.dataner.resources.persistence.database.tables.DeviceTagsTable
 import com.dataner.resources.persistence.database.tables.FloorTable
 import com.dataner.resources.persistence.database.tables.TagTable
 import com.dataner.resources.persistence.database.tables.WorkplaceTable
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import org.slf4j.LoggerFactory
 
 class DeviceRepositoryImpl : DeviceRepository {
@@ -74,6 +85,17 @@ class DeviceRepositoryImpl : DeviceRepository {
                 it[deviceState] = device.deviceState
                 it[deviceType] = device.deviceType
                 it[workplaceId] = device.workplaceId
+            }
+        }
+    }
+
+    override fun updateDeviceState(device: UpdateDeviceState) {
+        transaction {
+            DeviceTable.update({
+                DeviceTable.deviceId eq device.deviceId
+            }) {
+                it[deviceId] = device.deviceId
+                it[deviceState] = device.deviceState
             }
         }
     }
