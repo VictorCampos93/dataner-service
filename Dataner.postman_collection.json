@@ -1,45 +1,576 @@
 {
 	"info": {
-		"_postman_id": "51fd5f75-cd02-4b8c-b23e-7bf26f3ac3a6",
+		"_postman_id": "d77e283b-1376-4fe2-8a2a-1d83e60cd926",
 		"name": "Dataner",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Cadastrar Device",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"deviceId\": \"Id do Device\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Tags",
+			"item": [
+				{
+					"name": "Lista de Tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f7beb5ac-c054-4ab8-bc0e-0eb36e7336e5",
+								"exec": [
+									"// Define the schema expected in response",
+									"const responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"    \"$id\": \"http://example.com/root.json\",",
+									"    \"type\": \"array\",",
+									"    \"items\": {",
+									"        \"$id\": \"#/items\",",
+									"        \"type\": \"object\",",
+									"        \"title\": \"Tags Item Schema\",",
+									"        \"required\": [",
+									"            \"tagId\",",
+									"            \"tagDescription\"",
+									"        ],",
+									"        \"properties\": {",
+									"            \"tagId\": {",
+									"                \"$id\": \"#/items/properties/tagId\",",
+									"                \"type\": \"integer\",",
+									"                \"title\": \"Tag ID\",",
+									"                \"examples\": [",
+									"                    2",
+									"                ]",
+									"            },",
+									"            \"tagDescription\": {",
+									"                \"$id\": \"#/items/properties/tagDescription\",",
+									"                \"type\": \"string\",",
+									"                \"title\": \"Tag description\",",
+									"                \"examples\": [",
+									"                    \"AR-CONDICIONADO\"",
+									"                ]",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Ensures Status Code 200",
+									"pm.test('Status code is 200', function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Tests for response data structure",
+									"pm.test('Ensure schema contract', function () {",
+									"    var validation = tv4.validate(pm.response.json(), responseSchema);",
+									"    pm.expect(validation).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:7000/dataner/device",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "7000",
-					"path": [
-						"dataner",
-						"device"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags/all/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags",
+								"all",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de Tag",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9736d16a-316a-493e-a85a-5ecbfced5ab3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f3d6ef7-8f01-436b-bcdf-cc9a0dcc904a",
+								"exec": [
+									"// Define the schema expected in response",
+									"const responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"    \"$id\": \"http://example.com/root.json\",",
+									"    \"type\": \"object\",",
+									"    \"required\": [",
+									"        \"tagId\",",
+									"        \"tagDescription\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"tagId\": {",
+									"            \"$id\": \"#/items/properties/tagId\",",
+									"            \"type\": \"integer\",",
+									"            \"title\": \"Tag ID\",",
+									"            \"examples\": [",
+									"                2",
+									"            ]",
+									"        },",
+									"        \"tagDescription\": {",
+									"            \"$id\": \"#/items/properties/tagDescription\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"Tag description\",",
+									"            \"examples\": [",
+									"                \"AR-CONDICIONADO\"",
+									"            ]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"// Ensures Status Code 201",
+									"pm.test('Status code is 201', function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Tests for response data structure",
+									"pm.test('Ensure schema contract', function () {",
+									"    var validation = tv4.validate(pm.response.json(), responseSchema);",
+									"    pm.expect(validation).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tagDescription\": \"TOMADA\",\n\t\"buildingId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e74ea366-f4fc-493b-a210-01289d91b8a4",
+								"exec": [
+									"// Ensures Status Code 200",
+									"pm.test('Status code is 200', function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/tags/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"tags",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "DeviceTags",
+					"item": [
+						{
+							"name": "Todas as Tags de um Device",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceTagsUrl}}/asd1234",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceTagsUrl}}",
+										"asd1234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletando Tags de um Device",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"deviceId\": \"asd1234\",\n\t\"tagId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceTagsUrl}}/device",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceTagsUrl}}",
+										"device"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrando uma Tag em um Device",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"deviceId\": \"asd1234\",\n\t\"tagId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceTagsUrl}}/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceTagsUrl}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "DeviceState",
+					"item": [
+						{
+							"name": "Estado dos Devices de um prédio",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceStateUrl}}/building/2",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceStateUrl}}",
+										"building",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Estado dos Devices de um andar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceStateUrl}}/floor/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceStateUrl}}",
+										"floor",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Estado dos Devices de um ambiente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceStateUrl}}/workplace/4",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceStateUrl}}",
+										"workplace",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Estado de um Device",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceStateUrl}}/1234567",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceStateUrl}}",
+										"1234567"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "DeviceAll",
+					"item": [
+						{
+							"name": "Todos Devices de um Building",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceAllUrl}}/building/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceAllUrl}}",
+										"building",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Todos Devices de um Workplace",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceAllUrl}}/workplace/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceAllUrl}}",
+										"workplace",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Todos Devices de um Floor",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/{{deviceAllUrl}}/floor/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{deviceAllUrl}}",
+										"floor",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Cadastro de Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "193e2acc-9684-47de-991d-3ad5a6354957",
+								"exec": [
+									"// Ensures Status Code 201",
+									"pm.test('Status code is 201 NO CONTENT', function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deviceId\": \"asd123\",\n\t\"deviceDescription\": \"Device do Ar-Condicionado\",\n\t\"deviceType\": \"LUZ\",\n\t\"tagId\": [ 1, 2, 3 ],\n\t\"workplaceId\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataner/device",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataner",
+								"device"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizando um Device",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deviceId\": \"asd123\",\n\t\"deviceIdUpdate\": \"asd1234\",\n\t\"deviceDescription\": \"Ar-Condicionado\",\n\t\"deviceType\": \"LUZ\",\n\t\"tagId\": [ 1, 2, 3 ],\n\t\"workplaceId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{deviceUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{deviceUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dados de um Device",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{deviceUrl}}/asd1234",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{deviceUrl}}",
+								"asd1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletando um Device",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{deviceUrl}}/asd123",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{deviceUrl}}",
+								"asd123"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
