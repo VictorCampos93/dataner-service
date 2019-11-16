@@ -1,6 +1,13 @@
 package com.dataner.domain.devices.repositories
 
-import com.dataner.domain.devices.entities.*
+import com.dataner.domain.devices.entities.AllBuildingDevices
+import com.dataner.domain.devices.entities.AllDeviceState
+import com.dataner.domain.devices.entities.AllFloorDevices
+import com.dataner.domain.devices.entities.AllWorkplaceDevices
+import com.dataner.domain.devices.entities.Device
+import com.dataner.domain.devices.entities.DeviceTags
+import com.dataner.domain.devices.entities.DeviceUpdate
+import com.dataner.domain.devices.entities.UpdateDeviceState
 
 interface DeviceRepository {
 
@@ -11,6 +18,8 @@ interface DeviceRepository {
     fun deleteDevice(deviceId: String)
 
     fun updateDevice(device: DeviceUpdate)
+
+    fun updateDeviceState(device: UpdateDeviceState)
 
     fun deleteDeviceTags(deviceTags: DeviceTags)
 

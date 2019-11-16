@@ -12,6 +12,8 @@ interface DeviceService {
 
     fun update(device: DeviceUpdate)
 
+    fun updateDeviceState(device: UpdateDeviceState)
+
     fun allDeviceTags(deviceId: String): List<DeviceTags>
 
     fun createDeviceTags(deviceTags: DeviceTags)

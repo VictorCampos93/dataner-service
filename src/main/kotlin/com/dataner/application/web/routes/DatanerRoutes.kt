@@ -45,6 +45,7 @@ class DatanerRoutes(
                     get("workplace/:workplace") { deviceController.allWorkplaceDeviceState(it) }
                     get("building/workplaces/:building"){
                         deviceController.allBuildingWorkplaceDeviceState(it) }
+                    put { deviceController.updateDeviceState(it) }
                 }
 
                 path("tags") {
