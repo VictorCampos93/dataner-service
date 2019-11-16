@@ -1,5 +1,6 @@
 package com.dataner.resources.persistence.database.tables
 
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
 object BuildingTable : Table(name = "BUILDING") {
@@ -11,5 +12,6 @@ object BuildingTable : Table(name = "BUILDING") {
     val buildingAddressType = varchar(name = "ADDRESS_TYPE", length = 255)
     val buildingAddress = varchar(name = "ADDRESS", length = 255)
     val buildingState = varchar(name = "STATE", length = 255)
-    val companyId = (integer(name = "COMPANY_ID") references CompanyTable.companyId)
+    val companyId = (integer(name = "COMPANY_ID")
+        .references(CompanyTable.companyId, onDelete = ReferenceOption.CASCADE))
 }
